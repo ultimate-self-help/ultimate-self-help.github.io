@@ -15,10 +15,13 @@ with st.container():
         st.write('##')
         st.write(
             """
-            "Under construction, come back soon 2024."
+            Under construction, come back soon 2024.
+            This site will be open to public, free, no sign in
+            for all use and contribute (via GitHub).
+            i.e. Life tips and tricks, starting with technical info.
             """
         )
-        st.write("[Google ](https://google.com)")
+       
 
 
     with right_column:

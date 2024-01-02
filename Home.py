@@ -8,6 +8,8 @@ st.set_page_config(
 )
 
 st.title("Main Page")
+st.write("This site is a work in progress, started 2024Jan02. Watch this space.")
+st.write("Is slow due to free account, be patient.")
 # st.sidebar.success("Select a page above.")
 
 # Global state (all pages)
