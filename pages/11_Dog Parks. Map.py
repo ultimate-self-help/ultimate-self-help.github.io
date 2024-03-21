@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Dog Parks. Map",
-    page_icon="👋",
+    page_icon="🐶🗺️",
     layout='wide'
 )
 

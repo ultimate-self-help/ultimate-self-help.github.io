@@ -4,11 +4,25 @@ import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="Dog Parks",
-    page_icon="👋",
+    page_icon="🐶",
     layout='wide'
 )
 
 st.title("Dog Parks")
+
+st.image('2puppies.jpg')
+
+st.link_button("Dog Park. Map", "/Dog_Parks._Map")
+st.write("A simple map to find local..")
+st.write("- Dog Parks (on or off leash)")
+st.write("- Pets Stores")
+st.write("- Vets")
+st.write("- Hospitals")
+st.write("")
+st.write("If you see a pop-up asking to 'Allow' access, This is so we can discover you current location via GPS or cell towers (less accurate).")
+st.write("Whilst you can deny, the functionality of this site will not be as usefull.")
+
+
 
 # def initialize_session_state():
 #     if 'name' not in st.session_state:

@@ -7,24 +7,13 @@ st.set_page_config(
     layout="wide"
 )
 
-with st.container():
-    st.write("---")
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.header("Left")
-        st.write('##')
-        st.write(
-            """
-            Under construction, come back soon 2024.
-            This site will be open to public, free, no sign in
-            for all use and contribute (via GitHub).
-            i.e. Life tips and tricks, starting with technical info.
-            """
-        )
-       
+st.title("About")
+st.write("This site is a one man hobby and a constant work in progress. Watch this space!")
+st.write("This site will be taken offline if any signs of technical abuse or heavy financial loss.")
+st.write()
+st.write("Started: 2024Jan02")
+st.write("Last update: 2024Mar21.")
 
-
-    with right_column:
-            st.header("Right")
+st.write("Features will grow over time.")
          
     # st.write("Under construction, come back soon 2024.")
