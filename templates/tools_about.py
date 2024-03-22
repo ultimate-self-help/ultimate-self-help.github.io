@@ -22,7 +22,8 @@ def app():
 
 
 
-    st.write("Paste your test in the next box below, then select 'Clean Text' button.")
+    st.write("Paste your / any text in the next box below, then select 'Clean Text' button.")
+    st.write("Will remove 'wierd characters' like carriage returns etc.")
     text1 = st.text_area("Paste in here..")
     button1 = st.button("Clean Text Now")
     # text2 = st.text_area("Result")
