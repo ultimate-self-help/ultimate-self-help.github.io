@@ -43,15 +43,15 @@ class MultiApp:
             "nav-link-selected": {"background-color": "#02ab21"},}
             )
 
-            if app == "Home":
-                home.app()
-            if app == "Donate":
-                donate.app()    
-            # if app == "Trending":
-            #     trending.app()        
-            # if app == 'Your Posts':
-            #     your.app()
-            if app == 'About':
-                about.app()   
+        if app == "Home":
+            home.app()
+        if app == "Donate":
+            donate.app()    
+        # if app == "Trending":
+        #     trending.app()        
+        # if app == 'Your Posts':
+        #     your.app()
+        if app == 'About':
+            about.app()   
     
     run()
