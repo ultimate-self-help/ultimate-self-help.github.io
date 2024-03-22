@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_option_menu import option_menu
+from streamlit_extras.switch_page_button import switch_page
 # import * from sidebar-left
 # STREAMLIT HOME PAGE: https://docs.streamlit.io/library/api-reference#magic-commands
 
@@ -9,6 +10,15 @@ st.set_page_config(
     page_icon="👋",
     layout='wide'
 )
+
+if "my_input" not in st.session_state:
+    st.session_state['my_input'] = ""
+
+my_input = st.text_input("Input a text here", st.session_state["my_input"])
+submit = st.button("Submit")
+if submit:
+    st.session_state["my_input"] = my_input
+    st.write("You have entered: ", my_input)
 
 hide_st_style = """
             <style>
@@ -19,56 +29,66 @@ hide_st_style = """
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-# with st.sidebar:
-#     #with st.echo():
-#     st.write("This code will be printed to the sidebar.")
-#     st.page_link("pages/dog-parks-about.py", label="Dog Parks")
-#     st.page_link("pages/Tech Support.py", label="Tech Support")
-#     st.page_link("pages/Donate.py", label="Donate")
-#     st.page_link("pages/About.py", label="About")
-
 # https://www.youtube.com/watch?v=hEPoto5xp3k
 with st.sidebar:
     selected = option_menu(
         #menu_title="Main Menu", #required.
         menu_title=None, #required
         #menu_icon="cast",
-        options=["Home", "Dog Parks", "Tech Support", "About", "Donate"],
-        icons=['house', 'book', 'envelope', 'book', 'book'],
+        options=["Home", "Dog Parks", "Tech Support", "Tools","About", "Donate"],
+        icons=['house', 'book', 'envelope', 'book', 'book', 'book'],
         default_index=0
 
     )
 
-if selected:
-    #st.title(f"You selected: {selected}" )
-    if selected == "Home":
-        pass
-    if selected == "Dog Parks":
-        st.page_link(page="pages/dog-parks-about.py", label="Dog Parks")
-    if selected == "Tech Support":
-        st.page_link(page="pages/tech-support-about.py", label="Tehc Support")
-    if selected == "About":
-        st.page_link(page="pages/about.py", label="About")
-    if selected == "Donate":
-        st.page_link(page="pages/donate.py", label="Donate")
+
+#st.title(f"You selected: {selected}" )
+# if selected == "Home":
+#     pass
+# if selected == "Dog Parks":
+#     st.page_link(page="pages/dog-parks-about.py", label="Dog Parks")
+# if selected == "Tech Support":
+#     st.page_link(page="pages/tech-support-about.py", label="Tehc Support")
+# if selected == "Tools":
+#     st.page_link(page="pages/tools-about.py", label="Tools")
+# if selected == "About":
+#     st.page_link(page="pages/about.py", label="About")
+# if selected == "Donate":
+#     st.page_link(page="pages/donate.py", label="Donate")
+
+if selected == "Home":
+    pass
+if selected == "Dog Parks":
+    switch_page("dog-parks-about")
+if selected == "Tech Support":
+    switch_page("tech-support-about")
+#     st.page_link(page="pages/tech-support-about.py", label="Tehc Support")
+if selected == "Tools":
+    switch_page("tools-about")    
+#     st.page_link(page="pages/tools-about.py", label="Tools")
+if selected == "About":
+    switch_page("about")   
+#     st.page_link(page="pages/about.py", label="About")
+if selected == "Donate":
+    switch_page("donate")   
+#     st.page_link(page="pages/donate.py", label="Donate")
 
 
-with st.container():
-    st.write("---")
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.header("Link")
-        # st.link_button("Dog Parks. Overview", "/Dog_Parks._Overview")        
-       
+# with st.container():
+#     st.write("---")
+#     left_column, right_column = st.columns(2)
+#     with left_column:
+#         st.header("Link")
+#         st.page_link("pages/dog-parks-map.py", label="Dog Parks. Map")        
 
 
-    with right_column:
-        st.header("Description")
-        st.write(
-            """
-            Find local dog parks, pet stores, vets and hospitals.
-            """
-        )
+#     with right_column:
+#         st.header("Description")
+#         st.write(
+#             """
+#             Find local dog parks, pet stores, vets and hospitals.
+#             """
+#         )
 
 st.write("---")
 st.write("Donate (One off)")

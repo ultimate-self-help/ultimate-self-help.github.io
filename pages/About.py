@@ -17,3 +17,5 @@ st.write("Last update: 2024Mar21.")
 st.write("Features will grow over time.")
          
     # st.write("Under construction, come back soon 2024.")
+
+st.write(" You entered " , st.session_state["my_input"])
