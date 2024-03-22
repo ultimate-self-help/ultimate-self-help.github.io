@@ -8,7 +8,7 @@ import streamlit as st
 import database_control
 import pandas as pd
 #from datetime import datetim
-from streamlit_extras.dataframe_explorer import dataframe_explorer
+### from streamlit_extras.dataframe_explorer import dataframe_explorer
 #from streamlit_option_menu import option_menu 
 
 def app():
@@ -37,8 +37,8 @@ def app():
         # st.rerun()
 
         #---------------
-        filtered_dfe = dataframe_explorer(df)
-        st.dataframe(filtered_dfe, use_container_width=False)
+        # filtered_dfe = dataframe_explorer(df)
+        # st.dataframe(filtered_dfe, use_container_width=False)
 
 
 
