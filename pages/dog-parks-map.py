@@ -3,11 +3,20 @@ import streamlit.components.v1 as components
 # import streamlit_authenticator as stauth
 # from dependancies import sign_up, sign_in, fetch_users
 
-st.set_page_config(
-    page_title="Dog Parks. Map",
-    page_icon="🐶🗺️",
-    layout='wide'
-)
+# Hide from sidebar.
+# no_sidebar_style = """
+#     <style>
+#         div[data-testid="stSidebarNav"] {display: none;}
+#     </style>
+# """
+# st.markdown(no_sidebar_style, unsafe_allow_html=True)
+st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
+
+# st.set_page_config(
+#     page_title="Dog Parks. Map",
+#     page_icon="🐶🗺️",
+#     layout='wide'
+# )
 
 HtmlFile = open("pet-friendly.html", 'r', encoding='utf-8')
 source_code = HtmlFile.read()

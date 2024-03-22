@@ -1,7 +1,16 @@
 import streamlit as st
+
+import subprocess
+import sys
+import os
+import sqlite3
+from sqlite3 import Error
+import streamlit as st
 import database_control
 import pandas as pd
-#from datetime import datetime
+#from datetime import datetim
+
+#from streamlit_option_menu import option_menu 
 cnx = database_control.create_connection()
 
 # Page Configuration.

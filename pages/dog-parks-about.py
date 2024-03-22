@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit.components.v1 as components
+#import streamlit.components.v1 as components
 # from dependancies import sign_up, sign_in, fetch_users
 
 st.set_page_config(
@@ -12,7 +12,8 @@ st.title("Dog Parks")
 
 st.image('2puppies.jpg')
 
-st.link_button("Dog Park. Map", "/Dog_Parks._Map")
+#st.page_link("dogparks2.py", icon="🐶", label="DogParks2")
+st.page_link("pages/dogparks2.py", label="Dog Park. Map", icon="🐶")
 st.write("A simple map to find local..")
 st.write("- Dog Parks (on or off leash)")
 st.write("- Pets Stores")
