@@ -1,21 +1,11 @@
-import sqlite3
 import streamlit as st
-# def create_database():
-#     # conn = sqlite3.connect('database.db')
-#     # c = conn.cursor()
-#     # c.execute("""
-#     #           SELECT income
-#     #         """)
-#     # c.execute("""CREATE TABLE finances (date Date, income )""")
-#     pass
-
-# def insert_period(period, incomes, expenses, comment):
-#     pass
+import sqlite3
+from sqlite3 import Error
 #-----------------------------
 # Source: https://drive.google.com/drive/folders/1exzHognJY59XdaSSHZzXuPARFdLyf7s0
 
-#path =  './'
-db_name = 'ush_1.db'
+path =  './'
+db_name = 'ush_2.db'
 
 def create_connection():
     conn = None
@@ -26,30 +16,37 @@ def create_connection():
         print(e)
     return conn
 
-### Income  ####
-# def create_table(conn):
-#     try:
-#         c = conn.cursor()
-#         c.execute('''CREATE TABLE IF NOT EXISTS title (id INTEGER PRIMARY KEY, date text NOT NULL, amount numeric(5,2) NOT NULL, payee text NOT NULL, category text, account text, note text)''')
-#         c.execute('''CREATE TABLE IF NOT EXISTS payee (id INTEGER PRIMARY KEY,name text NOT NULL)''')
-#         c.execute('''CREATE TABLE IF NOT EXISTS category (id INTEGER PRIMARY KEY,name text NOT NULL)''')
-#         c.execute('''CREATE TABLE IF NOT EXISTS account (id INTEGER PRIMARY KEY,name text NOT NULL)''')
-
-#         conn.commit()
-#     except Error as e:
-#         print(e)
-
-# def create_db_and_tables():
-#     conn = create_connection()
-#     create_table(conn)
-
-def get_items_all():
-    conn = create_connection()
+# CREATE NEW DB AND TABLES -------------------------
+def create_table(conn):
     try:
         c = conn.cursor()
-        c.execute("SELECT * FROM items")
-        rows = c.fetchall()
-        names = [row[0] for row in rows]
-        return names
+        #c.execute('''CREATE TABLE IF NOT EXISTS expenses (id INTEGER PRIMARY KEY, date text NOT NULL, amount numeric(5,2) NOT NULL, payee text NOT NULL, category text, account text, note text)''')
+        c.execute('''CREATE TABLE IF NOT EXISTS tech_support (
+                  id INTEGER PRIMARY KEY,        
+                  title TEXT NOT NULL,
+                  category TEXT,
+                  symptom TEXT,
+                  resolution TEXT)''')
+        conn.commit()
     except Error as e:
         print(e)
+
+def create_db_and_tables():
+    conn = create_connection()
+    create_table(conn)
+# END OF CREATE NEW DB AND TABLES -------------------
+    
+    # INSERT DUMMY DATA ---------------------------------
+    # c = conn.cursor()
+    # c.execute("INSERT INTO tech_support (title, category, symptom, resolution) VALUES (?, ?, ?, ?)", (title, category, symptom, resolution))
+    # conn.commit()
+
+# INSERT SINGLE ROW ---------------------------------
+def add_row(conn, title, category, symptom, resolution):
+    try:
+        print("Passed In: ", title)
+        c = conn.cursor()
+        c.execute("INSERT INTO tech_support (title, category, symptom, resolution) VALUES (?, ?, ?, ?)", (title, category, symptom, resolution))
+        conn.commit()
+    except Error as e:
+        print("Error: ", e)
