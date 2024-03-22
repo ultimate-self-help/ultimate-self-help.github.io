@@ -16,3 +16,6 @@ streamlit run app.py --ui.hideSidebarNav True
 ---
 Good Streamlit Tutorials:
 https://www.youtube.com/watch?v=saOv9z6Fk88
+
+Layouts / templates.
+https://www.youtube.com/watch?v=GvRfFdymaFA&list=PLvRfcAN-QbYnxloydunJlfES_m6GblyEt
