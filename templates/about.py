@@ -18,5 +18,5 @@ def app():
     st.write("Features will grow over time.")
             
         # st.write("Under construction, come back soon 2024.")
-
-    st.write(" You entered " , st.session_state["my_input"])
+    if st.session_state:
+        st.write(" You entered " , st.session_state["my_input"])

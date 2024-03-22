@@ -13,11 +13,6 @@ from streamlit_extras.dataframe_explorer import dataframe_explorer
 
 def app():
     cnx = database_control.create_connection()
-
-    # Page Configuration.
-    st.set_page_config(page_title="Tech DB", layout='wide')
-
-
     # DISPLAY TABLE ----------------
     try:
         cnx = database_control.create_connection()

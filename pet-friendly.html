@@ -14,7 +14,7 @@
 <html>
 
 <head>
-  <title>Sushi Finder</title>
+  <title>Dog Park Finder</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <style>
@@ -75,17 +75,17 @@
     }
 
     .custom-map-control-button {
-    appearance: button;
-    background-color: #fff;
-    border: 0;
-    border-radius: 2px;
-    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    margin: 10px;
-    padding: 0 0.5em;
-    height: 40px;
-    font: 400 18px Roboto, Arial, sans-serif;
-    overflow: hidden;
+      appearance: button;
+      background-color: #fff;
+      border: 0;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      margin: 10px;
+      padding: 0 0.5em;
+      height: 40px;
+      font: 400 18px Roboto, Arial, sans-serif;
+      overflow: hidden;
   </style>
 </head>
 
@@ -96,12 +96,26 @@
 
   <!-- Map appears here -->
   <div id="map"></div>
-  <input id="button1" class="custom-map-control-button" style="z-index: 0; position: absolute; right: 800px; top: 0px; type="button" value="Park-Any" onclick="dosomething(this.value)">
-  <input id="button2" class="custom-map-control-button" style="z-index: 0; position: absolute; right: 700px; top: 0px; type="button" value="Park-Off_Leash" onclick="dosomething(this.value)">
+  <input id="button1" class="custom-map-control-button"
+    style="z-index: 0; position: absolute; right: 800px; top: 0px; type=" button" value="Park. All"
+    onclick="dosomething(this.value)">
 
-  <input id="button3" class="custom-map-control-button" style="z-index: 0; position: absolute; right: 500px; top: 0px; type="button" value="Pet_Store" onclick="dosomething(this.value)">
-  <input id="button4" class="custom-map-control-button" style="z-index: 0; position: absolute; right: 400px; top: 0px; type="button" value="Vet" onclick="dosomething(this.value)">
-  <input id="button5" class="custom-map-control-button" style="z-index: 0; position: absolute; right: 300px; top: 0px; type="button" value="Hospital" onclick="dosomething(this.value)">
+  <input id="button2" class="custom-map-control-button"
+    style="z-index: 0; position: absolute; right: 700px; top: 0px; type=" button" value="Park. Off Leash"
+    onclick="dosomething(this.value)">
+
+  <input id="button3" class="custom-map-control-button"
+    style="z-index: 0; position: absolute; right: 500px; top: 0px; type=" button" value="Pet Store"
+    onclick="dosomething(this.value)">
+
+  <input id="button4" class="custom-map-control-button"
+    style="z-index: 0; position: absolute; right: 400px; top: 0px; type=" button" value="Vet"
+    onclick="dosomething(this.value)">
+
+  <input id="button5" class="custom-map-control-button"
+    style="z-index: 0; position: absolute; right: 300px; top: 0px; type=" button" value="Hospital"
+    onclick="dosomething(this.value)">
+
 
   <script>
     /* Note: This example requires that you consent to location sharing when
@@ -120,22 +134,22 @@
         alert("button was clicked ");
     }; */
 
-    function dosomething(val){
+    function dosomething(val) {
 
-        console.log(val);
-        if (val == "Hospital"){
-            userQuery = "Hospital";
-        } else if (val == "Park-Off_Leash") {
-            userQuery = "Dog Park Off Leash";
-        } else if (val == "Pet_Store") {
-            userQuery = "Pet Store";
-        } else if (val == "Vet") {
-            userQuery = "vetrinarian";
-        } else {
-            userQuery = "Dog Park"
-        }
-        /*Re initialize map ..bug. should be betterway thar re-call api?*/
-        initMap();
+      console.log(val);
+      if (val == "Hospital") {
+        userQuery = "Hospital";
+      } else if (val == "Park-Off_Leash") {
+        userQuery = "Dog Park Off Leash";
+      } else if (val == "Pet_Store") {
+        userQuery = "Pet Store";
+      } else if (val == "Vet") {
+        userQuery = "vetrinarian";
+      } else {
+        userQuery = "Dog Park"
+      }
+      /*Re initialize map ..bug. should be betterway thar re-call api?*/
+      initMap();
     }
 
 
@@ -183,7 +197,7 @@
       pos = { lat: -33.856, lng: 151.215 };
       map = new google.maps.Map(document.getElementById('map'), {
         center: pos,
-        zoom: 15
+        zoom: 8
       });
 
       // Display an InfoWindow at the map center
@@ -323,8 +337,9 @@
     }
   </script>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBagMtcELtAlsHnWl_TMhIiighp4wl1zPg&libraries=places&callback=initMap">
-  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBagMtcELtAlsHnWl_TMhIiighp4wl1zPg&libraries=places&callback=initMap">
+    </script>
 </body>
 
 </html>
