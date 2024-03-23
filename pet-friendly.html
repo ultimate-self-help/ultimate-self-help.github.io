@@ -86,6 +86,62 @@
 			height: 40px;
 			font: 400 18px Roboto, Arial, sans-serif;
 			overflow: hidden;
+
+		}
+
+		#content {
+			margin: 0 auto;
+			margin-top: 100px; // former 250px
+			padding: 0;
+			/* width: 750px; */
+			width: 900px;
+			max-width: 80%;
+			padding-bottom: 10px;
+			text-align: center;
+		}
+
+		#mainMenuBar {
+			background: linear-gradient(to bottom right, #30273a, #8d78a5);
+			padding: 5px;
+			-webkit-border-radius: 0px;
+			-moz-border-radius: 0px;
+			border-radius: 0px;
+			resize: none;
+			border: 1px solid #30273a;
+			box-shadow: 0 0 10px #8d78a5;
+			border-radius: 15px 15px 15px 15px;
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.my_button {
+			z-index: 0;
+			position: absolute;
+			top: 2%;
+			color: #fff;
+			background-color: #4d90fe;
+			padding: 11px;
+
+			border: 2px solid transparent;
+			border-color: #090909;
+			border-radius: 8px;
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+
+			outline: none;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+			alignment-baseline: central;
+			/* width: 90%;
+			left: 5%; */
+			text-align: center;
+			text-decoration: none;
+
+			margin: 0px auto;
+		}
+
+		.my_button:hover {
+			background-color: #3B6EC2;
+		}
 	</style>
 </head>
 
@@ -96,26 +152,54 @@
 
 	<!-- Map appears here -->
 	<div id="map"></div>
-	<input id="button1" class="custom-map-control-button"
-		style="z-index: 0; position: absolute; right: 800px; top: 0px; type=" button" value="Park. All"
-		onclick="dosomething(this.value)">
 
-	<input id="button2" class="custom-map-control-button"
-		style="z-index: 0; position: absolute; right: 700px; top: 0px; type=" button" value="Park. Off Leash"
-		onclick="dosomething(this.value)">
+	<div id="content">
+		<div id="mainMenuBar">
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="ParkAll">Park (All)</button>
+			</div>
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="Park-Off_Leash">Park
+					(Off-Leash)</button>
+			</div>
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="Pet_Store">Pet Store</button>
+			</div>
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="Coffee">Coffee</button>
+			</div>
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="Vet">Vet</button>
+			</div>
+			<div>
+				<button class="my_button" onclick="dosomething(this.value)" value="Hospital">Hospital</button>
+			</div>
+		</div>
+		<!-- <input id="button1" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 800px; top: 0px; type=" button" value="Park. All"
+			onclick="dosomething(this.value)">
 
-	<input id="button3" class="custom-map-control-button"
-		style="z-index: 0; position: absolute; right: 500px; top: 0px; type=" button" value="Pet Store"
-		onclick="dosomething(this.value)">
+		<input id="button2" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 700px; top: 0px; type=" button" value="Park. Off Leash"
+			onclick="dosomething(this.value)">
 
-	<input id="button4" class="custom-map-control-button"
-		style="z-index: 0; position: absolute; right: 400px; top: 0px; type=" button" value="Vet"
-		onclick="dosomething(this.value)">
+		<input id="button3" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 500px; top: 0px; type=" button" value="Pet Store"
+			onclick="dosomething(this.value)">
 
-	<input id="button5" class="custom-map-control-button"
-		style="z-index: 0; position: absolute; right: 300px; top: 0px; type=" button" value="Hospital"
-		onclick="dosomething(this.value)">
+		<input id="button4" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 400px; top: 0px; type=" button" value="Coffee"
+			onclick="dosomething(this.value)">
 
+		<input id="button5" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 250px; top: 0px; type=" button" value="Vet"
+			onclick="dosomething(this.value)">
+
+		<input id="button6" class="custom-map-control-button"
+			style="z-index: 0; position: absolute; right: 100px; top: 0px; type=" button" value="Hospital"
+			onclick="dosomething(this.value)"> -->
+
+	</div>
 
 	<script>
 		/* Note: This example requires that you consent to location sharing when
@@ -145,6 +229,8 @@
 				userQuery = "Pet Store";
 			} else if (val == "Vet") {
 				userQuery = "vetrinarian";
+			} else if (val == "Coffee") {
+				userQuery = "coffee";
 			} else {
 				userQuery = "Dog Park"
 			}
