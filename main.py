@@ -15,14 +15,14 @@ st.set_page_config(
     layout='wide'
 )
 
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# hide_st_style = """
+#             <style>
+#             #MainMenu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             header {visibility: hidden;}
+#             </style>
+#             """
+# st.markdown(hide_st_style, unsafe_allow_html=True)
 
 if "my_input" not in st.session_state:
     st.session_state['my_input'] = ""
@@ -48,7 +48,7 @@ class MultiApp:
                 options=['Home','Dog Parks','Tech Support','Tools','Donate','About'],
                 icons=['house-fill','person-circle','trophy-fill','chat-fill','info-circle-fill', 'house-fill','person-circle','trophy-fill'],
                 menu_icon='chat-text-fill',
-                default_index=0,
+                default_index=2,
                 styles={
                     "container": {"padding": "5!important","background-color":'black'},
             "icon": {"color": "white", "font-size": "23px"}, 

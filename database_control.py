@@ -26,7 +26,8 @@ def create_table(conn):
                   title TEXT NOT NULL,
                   category TEXT,
                   symptom TEXT,
-                  resolution TEXT)''')
+                  resolution TEXT,
+                  rating INTEGER)''')
         conn.commit()
     except Error as e:
         print(e)
@@ -50,3 +51,12 @@ def add_row(conn, title, category, symptom, resolution):
         conn.commit()
     except Error as e:
         print("Error: ", e)
+
+# Delete Row:
+def delete_row(conn, id):
+    try:
+        c = conn.cursor()
+        c.execute("DELETE FROM tbl_budget WHERE id=?", (id,))
+        conn.commit()
+    except Error as e:
+        print(e)    
