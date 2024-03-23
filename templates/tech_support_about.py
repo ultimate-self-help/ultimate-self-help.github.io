@@ -88,28 +88,15 @@ def app():
         # for item in df:
         #     st.write("Row: ", item)
 
-        # ------------------------------------------------------
+        # ------------------------ SEMI WORKING ------------------------------
         # https://discuss.streamlit.io/t/deleting-rows-in-st-data-editor-progmatically/46337
-        if "data" not in st.session_state:
-            # st.session_state.data = pd.DataFrame(
-            #     {"title": [1, 2, 3, 4], "category": [10, 20, 30, 40]}
-            # )
-            st.session_state.data = pd.DataFrame(df)
+        # if "data" not in st.session_state:
+        #     # st.session_state.data = pd.DataFrame(
+        #     #     {"title": [1, 2, 3, 4], "category": [10, 20, 30, 40]}
+        #     # )
+        #     st.session_state.data = pd.DataFrame(df)
 
-        def delete_selected():
-            edited_rows = st.session_state["data_editor"]["edited_rows"]
-            rows_to_delete = []
-
-            for idx, value in edited_rows.items():
-                if value["x"] is True:
-                    rows_to_delete.append(idx)
-
-            st.session_state["data"] = (
-                st.session_state["data"].drop(rows_to_delete, axis=0).reset_index(drop=True)
-            )
-
-        # BACKUP . WORKING.
-        # def callback():
+        # def delete_selected():
         #     edited_rows = st.session_state["data_editor"]["edited_rows"]
         #     rows_to_delete = []
 
@@ -120,43 +107,59 @@ def app():
         #     st.session_state["data"] = (
         #         st.session_state["data"].drop(rows_to_delete, axis=0).reset_index(drop=True)
         #     )
-            
-        def callback():
-            edited_rows = st.session_state["data_editor"]["edited_rows"]
-            rows_to_delete = []
 
-            # Get dataframe row-selections from user with st.data_editor
-            # df_with_selections = df.copy()
-            # # df_with_selections.insert(0, "Select", False)
-            # edited_df = st.data_editor(
-            #     df_with_selections,
-            #     hide_index=True,
-            #     column_config={"Select": st.column_config.CheckboxColumn(required=True)},
-            #     disabled=df.columns,
-            # )
-            selected_rows = edited_rows
-            st.write("Selected: ", selected_rows)
+        # # BACKUP . WORKING.
+        # # def callback():
+        # #     edited_rows = st.session_state["data_editor"]["edited_rows"]
+        # #     rows_to_delete = []
+
+        # #     for idx, value in edited_rows.items():
+        # #         if value["x"] is True:
+        # #             rows_to_delete.append(idx)
+
+        # #     st.session_state["data"] = (
+        # #         st.session_state["data"].drop(rows_to_delete, axis=0).reset_index(drop=True)
+        # #     )
+            
+        # def callback():
+        #     edited_rows = st.session_state["data_editor"]["edited_rows"]
+        #     rows_to_delete = []
+
+        #     # Get dataframe row-selections from user with st.data_editor
+        #     df_with_selections = df.copy()
+        #     # # df_with_selections.insert(0, "Select", False)
+        #     edited_df = st.data_editor(
+        #         df_with_selections,
+        #         hide_index=True,
+        #     #     column_config={"Select": st.column_config.CheckboxColumn(required=True)},
+        #     #     disabled=df.columns,
+        #     )
+        #     #selected_rows = edited_df[edited_df.Select]
+
+
+        #     selected_rows = edited_rows
+        #     st.write("Selected: ", selected_rows)
 
            
 
-        # https://docs.streamlit.io/knowledge-base/using-streamlit/how-to-get-row-selections
-        columns = st.session_state["data"].columns
-        column_config = {column: st.column_config.Column(disabled=True) for column in columns}
+        # # https://docs.streamlit.io/knowledge-base/using-streamlit/how-to-get-row-selections
+        # columns = st.session_state["data"].columns
+        # column_config = {column: st.column_config.Column(disabled=True) for column in columns}
 
-        modified_df = st.session_state["data"].copy()
-        #modified_df.insert(0, "Select", False)
-        modified_df["x"] = False
-        # Make Delete be the first column
-        modified_df = modified_df[["x"] + modified_df.columns[:-1].tolist()]
+        # modified_df = st.session_state["data"].copy()
+        # #modified_df.insert(0, "Select", False)
+        # modified_df["x"] = False
+        # # Make Delete be the first column
+        # modified_df = modified_df[["x"] + modified_df.columns[:-1].tolist()]
 
 
-        st.data_editor(
-            modified_df,
-            key="data_editor",
-            on_change=callback,
-            hide_index=True,
-            column_config=column_config,
-        )
+        # st.data_editor(
+        #     modified_df,
+        #     key="data_editor",
+        #     on_change=callback,
+        #     hide_index=True,
+        #     column_config=column_config,
+        # )
         #---------------------------------------------------------
         
         # df2 = pd.DataFrame(
@@ -203,28 +206,135 @@ def app():
         #pyg_html = pyg.walk(df, return_html=True)
         ### pyg_html = pyg.walk(df, return_html=True)
         ### stc.html(pyg_html, scrolling=True, height=1000)
+        #--------------------------------------------------------
+        # VERSION 11.
+        
+        # st.write('Dataframe:')
+        # st.dataframe(df)
 
+        # Add a multiselect widget to select rows based on the index
+        # selected_indices = st.multiselect('Select rows:', df.index)
+
+        # Subset the dataframe with the selected indices
+        # selected_rows = df.loc[selected_indices]
+
+        # Display the selected data
+        # st.write('Selected Rows:')
+        # st.dataframe(selected_rows)
 
     # If DB or tables do not pre-exist. Create it.
+    # except:
+    #     submit = st.button("Create DB (First Time Users)")
+    #     if submit:
+    #         database_control.create_db_and_tables()
+    #     st.write("DB does not exist yet! Create it first!")
+    #-------------------- ORIGINAL WORKING ----------------------------
+        # if "data" not in st.session_state:
+        #         # st.session_state.data = pd.DataFrame(
+        #         #     {"title": [1, 2, 3, 4], "category": [10, 20, 30, 40]}
+        #         # )
+        #         st.session_state.data = pd.DataFrame(df)
+
+        # # BACKUP . WORKING.
+        # def callback():
+        #     edited_rows = st.session_state["data_editor"]["edited_rows"]
+        #     rows_to_delete = []
+
+        #     for idx, value in edited_rows.items():
+        #         if value["x"] is True:
+        #             rows_to_delete.append(idx)
+
+        #     st.session_state["data"] = (
+        #         st.session_state["data"].drop(rows_to_delete, axis=0).reset_index(drop=True)
+        #     )       
+        #     #selected_rows = edited_df[edited_df.Select]
+        #     selected_rows = edited_rows
+        #     st.write("Selected: ", selected_rows)
+
+        # # https://docs.streamlit.io/knowledge-base/using-streamlit/how-to-get-row-selections
+        # columns = st.session_state["data"].columns
+        # column_config = {column: st.column_config.Column(disabled=True) for column in columns}
+
+        # modified_df = st.session_state["data"].copy()
+        # #modified_df.insert(0, "Select", False)
+        # modified_df["x"] = False
+        # # Make Delete be the first column
+        # modified_df = modified_df[["x"] + modified_df.columns[:-1].tolist()]
+
+
+        # st.data_editor(
+        #     modified_df,
+        #     key="data_editor",
+        #     on_change=callback,
+        #     hide_index=True,
+        #     column_config=column_config,
+        # )
+    #-------------------------------------------------
+        # def callback(index):
+        #     st.write("User selected index: ",index)
+
+        # columns = st.session_state["data"].columns
+        # column_config = {column: st.column_config.Column(disabled=True) for column in columns}
+        
+        # modified_df = st.session_state["data"].copy()
+        # #modified_df.insert(0, "Select", False)
+        # modified_df["x"] = False
+        # # Make Delete be the first column
+        # modified_df = modified_df[["x"] + modified_df.columns[:-1].tolist()]
+
+        # st.data_editor(
+        #     modified_df,
+        #     key="data_editor",
+        #     on_change=callback(modified_df),
+        #     hide_index=True,
+        #     column_config=column_config,
+        # )   
+        # # Add a multiselect widget to select rows based on the index
+        # selected_indices = st.multiselect('Select rows:', df.index)
+
+        # # Display the selected data
+        # st.write('Selected Rows:')
+        # st.dataframe(selected_rows)
+        #----------------------------------------------
+        # https://blog.streamlit.io/editable-dataframes-are-here/
+        # edited_df = st.data_editor(
+        #     df,
+        #     num_rows=”dynamic”
+        #     )
+        # favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
+        # st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
+        #================================
+        # BEST EXAMPLE: https://discuss.streamlit.io/t/how-to-select-single-or-multiple-rows-in-st-dataframe-and-return-the-selected-data/54897/4
+        def dataframe_with_selections(df: pd.DataFrame, init_value: bool = False) -> pd.DataFrame:
+            df_with_selections = df.copy()
+            df_with_selections.insert(0, "Select", init_value)
+
+            # Get dataframe row-selections from user with st.data_editor
+            edited_df = st.data_editor(
+                df_with_selections,
+                hide_index=True,
+                column_config={"Select": st.column_config.CheckboxColumn(required=True)},
+                disabled=df.columns,
+                num_rows="dynamic",
+            )
+
+            # Filter the dataframe using the temporary column, then drop the column
+            selected_rows = edited_df[edited_df.Select]
+            #st.write("Selected Rows: ", edited_df.loc["title"])
+            st.write("Hello", edited_df[edited_df.Select]['id'])
+            #print("RESULT: ", edited_df[edited_df.Select])
+            #favorite_command = edited_df.loc[edited_df["title"]]["command"]   
+            #st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
+            return selected_rows.drop('Select', axis=1)
+    
+        def get_selected_id():
+            pass
+
+        selection = dataframe_with_selections(df)
+        st.write("Your selection:")
+        st.write(selection)
+        # st.write(selection.loc)
     except:
-        submit = st.button("Create DB (First Time Users)")
-        if submit:
-            database_control.create_db_and_tables()
-        st.write("DB does not exist yet! Create it first!")
-
-
-    #try:
-        # title = st.multiselect(
-        #     "Select the Merchant:",
-        #     options=df["title"].unique(),
-        #     default=df["title"].unique(),
-        # )
-
-        # df_filtered = df.query(
-        #     "title == @title"
-        # )
-        #st.dataframe(df_filtered)
-
-
+        pass
 
 
