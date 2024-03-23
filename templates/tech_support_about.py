@@ -42,14 +42,12 @@ def app():
                 st.rerun()
 
         # DELETE.
-        st.subheader('Delete single entry')
-        id = st.number_input('Id to delete', value=0)
-        if st.button('Delete Expense'):    
-            database_control.delete_budget(cnx, int(id))
-            st.success('Expense deleted!')
-            st.rerun() 
-
-
+        # st.subheader('Delete single entry')
+        # id = st.number_input('Id to delete', value=0)
+        # if st.button('Delete Expense'):    
+        #     database_control.delete_budget(cnx, int(id))
+        #     st.success('Expense deleted!')
+        #     st.rerun() 
 
         category = st.multiselect(
             "Filter by Category:",
@@ -305,6 +303,11 @@ def app():
         # st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
         #================================
         # BEST EXAMPLE: https://discuss.streamlit.io/t/how-to-select-single-or-multiple-rows-in-st-dataframe-and-return-the-selected-data/54897/4
+        if "data" not in st.session_state:
+            # Array of row Id's in prep to delete from DB.
+            st.session_state.data = []
+
+
         def dataframe_with_selections(df: pd.DataFrame, init_value: bool = False) -> pd.DataFrame:
             df_with_selections = df.copy()
             df_with_selections.insert(0, "Select", init_value)
@@ -316,24 +319,38 @@ def app():
                 column_config={"Select": st.column_config.CheckboxColumn(required=True)},
                 disabled=df.columns,
                 num_rows="dynamic",
+                
             )
 
             # Filter the dataframe using the temporary column, then drop the column
             selected_rows = edited_df[edited_df.Select]
             #st.write("Selected Rows: ", edited_df.loc["title"])
-            st.write("Hello", edited_df[edited_df.Select]['id'])
+            #st.write("Hello", edited_df[edited_df.Select]['id'])
+            st.session_state.data = edited_df[edited_df.Select]['id']
             #print("RESULT: ", edited_df[edited_df.Select])
             #favorite_command = edited_df.loc[edited_df["title"]]["command"]   
             #st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
-            return selected_rows.drop('Select', axis=1)
-    
-        def get_selected_id():
-            pass
+            #st.write("Session State: ", st.session_state.data)
+            return selected_rows.drop('Select', axis=1)            
 
+        # DELETE ROW.
+        def delete_row():
+            #st.write("DELEETE THIS ID'S ", st.session_state.data)
+            ids_to_delete = st.session_state.data
+            res = database_control.delete_row(cnx, ids_to_delete)
+            return res 
+        
         selection = dataframe_with_selections(df)
-        st.write("Your selection:")
+        st.write("You selected to delete:")
         st.write(selection)
-        # st.write(selection.loc)
+
+
+        submit = st.button("Delete selected row(s)")
+        if submit:
+            res = delete_row()
+            return res
+        
+
     except:
         pass
 

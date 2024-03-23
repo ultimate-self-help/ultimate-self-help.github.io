@@ -45,7 +45,7 @@ def create_db_and_tables():
 # INSERT SINGLE ROW ---------------------------------
 def add_row(conn, title, category, symptom, resolution):
     try:
-        print("Passed In: ", title)
+        print("Passed In to Add: ", title)
         c = conn.cursor()
         c.execute("INSERT INTO tech_support (title, category, symptom, resolution) VALUES (?, ?, ?, ?)", (title, category, symptom, resolution))
         conn.commit()
@@ -53,10 +53,18 @@ def add_row(conn, title, category, symptom, resolution):
         print("Error: ", e)
 
 # Delete Row:
-def delete_row(conn, id):
+def delete_row(conn, ids):
+    #print("IDS to delete: ", ids)
+    for id in ids:
+        print("Deleted Id: ", id)
+
+
     try:
         c = conn.cursor()
-        c.execute("DELETE FROM tbl_budget WHERE id=?", (id,))
-        conn.commit()
+        for id in ids:
+            c.execute("DELETE FROM tech_support WHERE id=?", (id,))
+            conn.commit()
+        #st.info("OK. Successfuly deleted!")
+        st.rerun()
     except Error as e:
         print(e)    
