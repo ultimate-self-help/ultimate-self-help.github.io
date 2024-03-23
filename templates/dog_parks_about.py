@@ -15,10 +15,19 @@ def app():
         st.write("- Vets")
         st.write("- Hospitals")
         st.write("")
-        st.write("If you see a pop-up asking to 'Allow' access, This is so we can discover you current location via GPS or cell towers (less accurate).")
-        st.write("Whilst you can deny, the functionality of this site will not be as usefull.")
 
-        st.write("Use the top right icon within the map to expand full screen.")
+        st.markdown('## How To Use:')
+        st.write("1. Once you can see the map, suggest to hide this site left sidebar / menu. (Optional)")
+        st.write("2. Confirm you selected 'allow' permissions, see below.")        
+        st.write("3. Once map appears, confirm it has detected you in correct location i.e Country / town.")
+        st.write("4. Select one of the top menu on map.")
+        st.write("5. Select 'Full Screen' mode from top right of map (Optional)")
+
+        st.markdown('## My Locations Is Not Correct:')
+        st.write("1. You must be withing cell / mobile tower range i.e. have a cell or mobile signal.")
+        st.write("2. You must 'allow' this site access via the initial pop-up.")
+        st.write("3. For best accuracy, you must enable GPS / 'Location' tracking from withing your mobile device 'settings'.")
+
 
 
     HtmlFile = open("pet-friendly.html", 'r', encoding='utf-8')
