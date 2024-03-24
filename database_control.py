@@ -21,7 +21,6 @@ def create_connection():
 def create_table(conn):
     try:
         c = conn.cursor()
-
         # Main tech_support table. Create.
         #c.execute('''CREATE TABLE IF NOT EXISTS expenses (id INTEGER PRIMARY KEY, date text NOT NULL, amount numeric(5,2) NOT NULL, payee text NOT NULL, category text, account text, note text)''')    
         c.execute('''CREATE TABLE IF NOT EXISTS tech_support (                  
@@ -86,7 +85,19 @@ def add_row(conn, doc_type, title, category, symptom, resolution):
         print("Error: ", e)
     conn.close()
 
+def update_single_row(conn, data ):
+    id = data.id
+    title = data.title
+    doc_type = data.doc_type
+    category = data.category
 
+    print("UPDATED TITLE data: ", data)
+    # c = conn.cursor()
+    # # c.execute(f"UPDATE tech_support SET id={id}, title={title}, doc_type={doc_type}, category={category}")
+    # #c.executemany("UPDATE tech_support SET title = ? doc_type = ? category = ? WHERE id = ?", (title, doc_type, category, id))
+    # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
+    # conn.commit()
+    
 # Delete. Single Row.
 def delete_row(conn, ids):
     try:
@@ -101,21 +112,15 @@ def delete_row(conn, ids):
         print(e)    
     conn.close()
 
+
 # doc_type
 def doc_type_get_all(conn):
     try:
         print("IN...")
         c = conn.cursor()
-        #df2 = c.execute(("SELECT * FROM doc_type", conn)) 
         df2 = pd.read_sql_query("SELECT * FROM doc_type", conn)
-       
-        #resp = c.fetchall()
-        # resp = conn.commit()
-        print("RESPT :", df2 )
+        #print("RESPT :", df2 )
         #optionslist = list(df2)
-        #print("RESPT :", optionslist )
-        #print("To Return: ", optionslist)
-        #return optionslist
         return df2
     
     except:

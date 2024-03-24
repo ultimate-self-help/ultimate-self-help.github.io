@@ -158,26 +158,9 @@ def app():
                 # renderer.render_explore()
                 # #--------------------------------------------
 
-                # update.
-                def callbackupdate(update):
-                    print("UPdate: ", update)
-                    
-                st.markdown("## UPDATE ITEM/ROW")
-                update_table = st.data_editor(
-                    df, 
-                    num_rows='dynamic'
-                )
-
-                print("UPDATED TABLE 1: ", update_table)
-                print("UPDATED TABLE 2: ", update_table.id)
-                print("UPDATED TABLE 3: ", update_table.title)               
-                database_control.update_single_row(cnx, update_table)
-                print("----------------")
-                    
-
-                # DATAFRAME EXPLORER. TEMP DISABLED. GOOD.
-                # filtered_df = dataframe_explorer(df, case=False)
-                # st.dataframe(filtered_df, use_container_width=True)
+                # DATAFRAME EXPLORER.
+                filtered_df = dataframe_explorer(df, case=False)
+                st.dataframe(filtered_df, use_container_width=True)
 
         except ImportError as e:
             print("DB Error: ", e)

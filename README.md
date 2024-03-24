@@ -19,3 +19,7 @@ https://www.youtube.com/watch?v=saOv9z6Fk88
 
 Layouts / templates.
 https://www.youtube.com/watch?v=GvRfFdymaFA&list=PLvRfcAN-QbYnxloydunJlfES_m6GblyEt
+
+CRUD Tut:
+https://www.youtube.com/watch?v=i6gt2OKezOQ
+===
