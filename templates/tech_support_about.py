@@ -37,6 +37,7 @@ def app():
         try:
             cnx = database_control.create_connection()
             df = pd.read_sql_query("SELECT * FROM tech_support", cnx)
+
             with st.container(border=True):
                 # title = st.multiselect(
                 #     "Filter by Title:",
@@ -44,33 +45,20 @@ def app():
                 #     default=df["title"].unique(),
                 # )
 
-                # CREATE.
-                # #with st.expander("Add new entry"): 
-                #     #date_created = st.date_input("Date Created")
-                #     title = st.text_input("Title: ")
-                #     category = st.text_input("Category: ")
-                #     symptom = st.text_input("Symptom: ")
-                #     resolution = st.text_input("Resolution: ")
-
-                #     submit = st.button('Add new row / entry.')
-
-                #     if submit:
-                #         print("Title to save ", title)
-                #         database_control.add_row(cnx, title, category, symptom, resolution)
-                #         st.success('Updated OK')       
-
-                        #with st.expander("Add new entry"):
-            
+                # New record. Create.            
                 popover = st.popover("Add New", use_container_width=True)  
+                res = database_control.doc_type_get_all(cnx)
                 with popover.form("New Entry"):
+                    #res = database_control.doc_type_get_all(cnx)
+                    #print("GET ALL DOC_TYPE: ",  res)
                     #date_created = st.date_input("Date Created")
                     title = popover.text_input("Title: ")
-                    doc_type = popover.text_input("Doc Type")
+                    doc_type = popover.selectbox("Select one ", res.title)
                     category = popover.text_input("Category: ")
                     symptom = popover.text_area("Symptom: ")
                     resolution = popover.text_area("Resolution: ")
                     submit = popover.button('Submit')
-
+                    #print("Selected: ", doc_type)
 
                     if submit:
                         print("Title to save ", title)
