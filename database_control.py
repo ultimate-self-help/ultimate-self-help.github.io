@@ -25,13 +25,28 @@ def create_table(conn):
                   id INTEGER PRIMARY KEY,        
                   date_created DATETIME DEFAULT CURRENT_TIMESTAMP,
                   title TEXT NOT NULL,
+                  doc_type TEXT NOT NULL,
                   category TEXT,
                   symptom TEXT,
                   resolution TEXT,
                   rating INTEGER)''')
         conn.commit()
+
+        # DOC_TYPE LOOKUP TABLE.
+        c.execute('''CREATE TABLE IF NOT EXISTS doc_type (                  
+                  id INTEGER PRIMARY KEY,        
+                  title TEXT NOT NULL,
+                  FOREIGN KEY id REFERENCES tech_support(id))''')
+        conn.commit()
+      
+        # SET INITAL DATA.
+        c.execute("INSERT INTO doc_type (title) VALUES (?,)", ("Incident"))
+        c.execute("INSERT INTO doc_type (title) VALUES (?,)", ("Request"))
+        c.execute("INSERT INTO doc_type (title) VALUES (?,)", ("Work Instructions"))
+        conn.commit()
     except Error as e:
         print(e)
+
 
 def create_db_and_tables():
     conn = create_connection()
@@ -44,11 +59,11 @@ def create_db_and_tables():
     # conn.commit()
 
 # INSERT SINGLE ROW ---------------------------------
-def add_row(conn, title, category, symptom, resolution):
+def add_row(conn, doc_type, title, category, symptom, resolution):
     try:
         print("Passed In to Add: ", title)
         c = conn.cursor()
-        c.execute("INSERT INTO tech_support (title, category, symptom, resolution) VALUES (?, ?, ?, ?)", (title, category, symptom, resolution))
+        c.execute("INSERT INTO tech_support (title, doc_type, category, symptom, resolution) VALUES (?, ?, ?, ?, ?)", (title, doc_type, category, symptom, resolution))
         conn.commit()
     except Error as e:
         print("Error: ", e)
