@@ -13,6 +13,18 @@ from pygwalker.api.streamlit import StreamlitRenderer, init_streamlit_comm # New
 import numpy as np
 
 def app():
+    # If DB or tables do not exist. Create them.
+    try:
+        cnx = database_control.create_connection()
+        cnx = database_control.create_connection()
+        df = pd.read_sql_query("SELECT * FROM tech_support", cnx)       
+    except:
+        submit = st.button("Create DB (First Time Users)")
+        if submit:
+            database_control.create_db_and_tables()
+        st.write("DB does not exist yet! Create it first!")
+
+    # Shouldn't need to duplicate above. .bug. 
     cnx = database_control.create_connection()
     # DISPLAY TABLE ----------------
     try:
@@ -26,6 +38,7 @@ def app():
 
         # CREATE.
         with st.expander("Add new entry"):
+            #date_created = st.date_input("Date Created")
             title = st.text_input("Title: ")
             category = st.text_input("Category: ")
             symptom = st.text_input("Symptom: ")
@@ -34,10 +47,9 @@ def app():
             submit = st.button('Add new row / entry.')
 
             if submit:
-                print("TITLE ", title)
+                print("Title to save ", title)
                 database_control.add_row(cnx, title, category, symptom, resolution)
-                st.success('Updated OK')
-                st.rerun()
+                st.success('Updated OK')       
 
 
         category = st.multiselect(
@@ -59,6 +71,8 @@ def app():
         df_filtered = df.query(
             "title == @title & category == @category"
         )
+
+
                 
         # COUNT OF ROWS.                
         st.metric("Stats: ", df_filtered['title'].count().round(2))
@@ -111,6 +125,7 @@ def app():
         ###components.html(pyg_html, height=1000, scrolling=True)
 
         # PYG WALKER (NEW)
+        # Source: https://docs.kanaries.net/pygwalker/use-pygwalker-with-streamlit
         # Establish communication between pygwalker and streamlit
         init_streamlit_comm()
         # Get an instance of pygwalker's renderer. You should cache this instance to effectively prevent the growth of in-process memory.
@@ -125,5 +140,5 @@ def app():
         # Render your data exploration interface. Developers can use it to build charts by drag and drop.
         renderer.render_explore()
 
-    except:
-        pass
+    except ImportError as e:
+        print("DB Error: ", e)
