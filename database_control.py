@@ -21,8 +21,9 @@ def create_table(conn):
     try:
         c = conn.cursor()
         #c.execute('''CREATE TABLE IF NOT EXISTS expenses (id INTEGER PRIMARY KEY, date text NOT NULL, amount numeric(5,2) NOT NULL, payee text NOT NULL, category text, account text, note text)''')
-        c.execute('''CREATE TABLE IF NOT EXISTS tech_support (
+        c.execute('''CREATE TABLE IF NOT EXISTS tech_support (                  
                   id INTEGER PRIMARY KEY,        
+                  date_created Date,
                   title TEXT NOT NULL,
                   category TEXT,
                   symptom TEXT,
@@ -43,11 +44,11 @@ def create_db_and_tables():
     # conn.commit()
 
 # INSERT SINGLE ROW ---------------------------------
-def add_row(conn, title, category, symptom, resolution):
+def add_row(conn, date_created, title, category, symptom, resolution):
     try:
         print("Passed In to Add: ", title)
         c = conn.cursor()
-        c.execute("INSERT INTO tech_support (title, category, symptom, resolution) VALUES (?, ?, ?, ?)", (title, category, symptom, resolution))
+        c.execute("INSERT INTO tech_support (date_created, title, category, symptom, resolution) VALUES (?, ?, ?, ?, ?)", (date_created, title, category, symptom, resolution))
         conn.commit()
     except Error as e:
         print("Error: ", e)
@@ -65,6 +66,7 @@ def delete_row(conn, ids):
             c.execute("DELETE FROM tech_support WHERE id=?", (id,))
             conn.commit()
         #st.info("OK. Successfuly deleted!")
+        #st.popover("OK. Successfuly deleted!")
         st.rerun()
     except Error as e:
         print(e)    

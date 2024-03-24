@@ -7,6 +7,7 @@ import templates.dog_parks_about as dog_parks_about
 import templates.donate as donate
 import templates.about as about
 import templates.tools_about as tools_about
+import templates.tools_weather as tools_weather
 import templates.tech_support_about as tech_support_about
 
 st.set_page_config(
@@ -45,7 +46,7 @@ class MultiApp:
         with st.sidebar:
             app = option_menu(
                 menu_title='Welcome ',
-                options=['Home','Dog Parks','Tech Support','Tools','Donate','About'],
+                options=['Home','Dog Parks','Tech Support','Tools','Weather','Donate','About'],
                 icons=['house-fill','person-circle','trophy-fill','chat-fill','info-circle-fill', 'house-fill','person-circle','trophy-fill'],
                 menu_icon='chat-text-fill',
                 default_index=2,
@@ -66,6 +67,8 @@ class MultiApp:
             tech_support_about.app()
         if app == "Tools":
            tools_about.app() 
+        if app == "Weather":
+           tools_weather.app() 
         if app == 'About':
             about.app()   
     
