@@ -100,27 +100,43 @@ def update_single_row(conn, db_id, data ):
    
     d =  data["edited_rows"].items()
     db1 = conn.cursor()
+    
+    row_index = 0
+    real_db_id = 0
+
     for key, value in d:
-        # print("DB Id: ", key) # 0
-        # print("VALUE: ", value) # {'title:'222'}
-        #for key, value in db_id:
-        print("ID ITEMS ========= ", db_id.items())
-        for i in db_id.items():
-            print("EACH ID: ", i)
-            
-        print("ID KEY: ", db_id.keys)
-        print("ID VALUES: ", db_id.values)
+        print("dataAAAAAA ", key)
+        row_index = key
+        
+    for key, value in db_id.items():
+        print("EACH ID: ", key)
+        if row_index == key:
+            print("CORRECT DB ID IS ", value)
+            real_db_id = value
+    
+
+    for key, value in d:
+
+        # row_index = key
+        # for key, value in db_id.items():
+        #     print("EACH ID: ", key)
+        #     if row_index == key:
+        #         print("CORRECT DB ID IS ", value)
+        #         real_db_id = value
+
+        #print("ID KEY: ", db_id.keys)
+        #print("ID VALUES: ", db_id.values)
         #print("ID Value: ", value)
         
 
-        db_row_id = key
+        #db_row_id = key
         for key, value in value.items():
-            print("db_row_id: ", db_row_id)
+            #print("db_row_id: ", db_row_id)
             print("key: ", key) # 'title
             print("new value: ", value) # '222'
             
             # WORKING OK. c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
-            db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, id))
+            db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
             conn.commit()
             print("OK. Updated DB")
           
