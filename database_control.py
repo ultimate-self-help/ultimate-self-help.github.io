@@ -75,7 +75,7 @@ def create_db_and_tables():
 
 
 # Database. Insert. Single row.
-def add_row(conn, doc_type, title, category, symptom, resolution):
+def add_row(conn, title, doc_type, category, symptom, resolution):
     try:
         print("Passed In to Add: ", title)
         c = conn.cursor()
@@ -86,18 +86,30 @@ def add_row(conn, doc_type, title, category, symptom, resolution):
     conn.close()
 
 def update_single_row(conn, data ):
-    id = data.id
-    title = data.title
-    doc_type = data.doc_type
-    category = data.category
+    # id = data.id
+    # title = data.title
+    # doc_type = data.doc_type
+    # category = data.category
 
-    print("UPDATED TITLE data: ", data)
-    # c = conn.cursor()
-    # # c.execute(f"UPDATE tech_support SET id={id}, title={title}, doc_type={doc_type}, category={category}")
-    # #c.executemany("UPDATE tech_support SET title = ? doc_type = ? category = ? WHERE id = ?", (title, doc_type, category, id))
-    # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
-    # conn.commit()
-    
+    # WORKING FOR VALUES. NO ID.
+    # for row in data["edited_rows"].values():
+    #     print("ROW: ", row['title'])
+
+    d =  data["edited_rows"].items()
+    for key, value in d:
+        print("DB Id: ", key) # 0
+        print("VALUE: ", value) # {'title:'222'}
+        for key, value in value.items():
+             print("v2: ", key) # 'title
+             print("v2: ", value) # '222'
+
+        #c = conn.cursor()
+        # # c.execute(f"UPDATE tech_support SET id={id}, title={title}, doc_type={doc_type}, category={category}")
+        # #c.executemany("UPDATE tech_support SET title = ? doc_type = ? category = ? WHERE id = ?", (title, doc_type, category, id))
+        # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
+        # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (value, key))
+        # conn.commit()   
+
 # Delete. Single Row.
 def delete_row(conn, ids):
     try:

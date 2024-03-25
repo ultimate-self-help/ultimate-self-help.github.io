@@ -162,16 +162,31 @@ def app():
                 def callbackupdate(update):
                     print("UPdate: ", update)
                     
+                
+
                 st.markdown("## UPDATE ITEM/ROW")
                 update_table = st.data_editor(
                     df, 
-                    num_rows='dynamic'
+                    num_rows='dynamic',
+                    key="my_key"
                 )
+                # Good Demo To Use Later:
+                #https://streamlit-feature-demos-data-editor-foundationdemo-bhdzga.streamlit.app/#compatible-with-st-form
+
+                # Closest: https://stackoverflow.com/questions/76445570/keep-getting-a-key-error-when-using-the-data-editor-streamlit
+
+                # BEST FOR EXTRACT SINGLE CELL CHANGED ON ST.DATA_EDITOR()
+                # https://docs.streamlit.io/library/advanced-features/dataframes#access-edited-data
 
                 print("UPDATED TABLE 1: ", update_table)
                 print("UPDATED TABLE 2: ", update_table.id)
-                print("UPDATED TABLE 3: ", update_table.title)               
-                database_control.update_single_row(cnx, update_table)
+                print("UPDATED TABLE 3: ", update_table.title)       
+                print("INDEX: ", update_table.index)
+                print("GET SINGLE ROW: ", update_table.loc[update_table.index])
+                
+                print("MY_KEY SESSION STATE: ", st.session_state["my_key"])
+                database_control.update_single_row(cnx, st.session_state["my_key"])
+                print("----------------")
                 print("----------------")
                     
 
