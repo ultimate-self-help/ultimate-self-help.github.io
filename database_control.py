@@ -85,6 +85,18 @@ def add_row(conn, title, doc_type, category, symptom, resolution):
         print("Error: ", e)
     conn.close()
 
+def delete_single_row(conn, data):
+    d = data["deleted_rows"].items()
+    print("To Delete: ", d)
+
+    for i in d:
+        print("To Delete Each: ", i)
+
+
+def update_single_row2(conn, data):    
+    print("DATA PASSED IN: ", data)
+
+
 def update_single_row(conn, db_id, data ):
     # THIS IS CRAZY. MUST BE A BETTER WAY!!!
     #id = 1
@@ -96,7 +108,7 @@ def update_single_row(conn, db_id, data ):
     # for row in data["edited_rows"].values():
     #     print("ROW: ", row['title'])
 
-    print("IDD3242424DDDD ARRAY: ", db_id)
+    #print("IDD3242424DDDD ARRAY: ", db_id)
    
     d =  data["edited_rows"].items()
     db1 = conn.cursor()
@@ -105,13 +117,13 @@ def update_single_row(conn, db_id, data ):
     real_db_id = 0
 
     for key, value in d:
-        print("dataAAAAAA ", key)
+        #print("dataAAAAAA ", key)
         row_index = key
         
     for key, value in db_id.items():
-        print("EACH ID: ", key)
+        #print("EACH ID: ", key)
         if row_index == key:
-            print("CORRECT DB ID IS ", value)
+            #print("CORRECT DB ID IS ", value)
             real_db_id = value
     
 
@@ -159,7 +171,7 @@ def delete_row(conn, ids):
 # doc_type
 def doc_type_get_all(conn):
     try:
-        print("IN...")
+        print("IN GET ALL FROM DB.")
         c = conn.cursor()
         df2 = pd.read_sql_query("SELECT * FROM doc_type", conn)
         #print("RESPT :", df2 )

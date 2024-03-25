@@ -160,27 +160,34 @@ def app():
 
                 # update.
                 def callbackupdate():
+                    # Not really doing anything! Yet.
                     # https://stackoverflow.com/questions/75595820/streamlit-how-can-i-retrieve-edited-dataframe-in-callback
-                    print("UPDATE ~~~~~~: ")
-                    #my_key = st.session_state["my_key"]
-                    #t = type_util.convert_anything_to_df(t)
-                    # print("DB ROW ID ", id)
-                    # for d in id:
-                    #     print("DDDDD: ", d)
-                    #_apply_dataframe_edits(t, st.session_state['st_t'])make_use_of_edited_dataframe(t)
-                    print("IDDDDDD: ", st.session_state["user_selected_id"])
                     
-                
+                    if st.session_state.my_key:
+                        blah = st.session_state.my_key
+                        print("KEY 123: ", blah)   
+                    
+                    print("IDDDDDD: ", st.session_state["user_selected_id"])
 
                 st.markdown("## UPDATE ITEM/ROW")
+
                 update_table = st.data_editor(
                     df, 
                     num_rows='dynamic',
                     key="my_key",
-                    # args=(),
+                    # args=(update_table),
                     on_change=callbackupdate,
                     #  kwargs=dict(id-[])
                 )
+
+                # if "latest_data" not in st.session_state:
+                #     st.session_state.latest_data
+
+                # def update_tbl(new_update):
+                #     st.session_state.latest_data = new_update
+
+                # update_btn = st.button("Save", on_click=update_tbl, args=(update_table),)
+
                 # Good Demo To Use Later:
                 #https://streamlit-feature-demos-data-editor-foundationdemo-bhdzga.streamlit.app/#compatible-with-st-form
 
@@ -188,32 +195,105 @@ def app():
 
                 # BEST FOR EXTRACT SINGLE CELL CHANGED ON ST.DATA_EDITOR()
                 # https://docs.streamlit.io/library/advanced-features/dataframes#access-edited-data
-
-                print("UPDATED TABLE 1: ", update_table)
-                print("UPDATED TABLE 2: ", update_table.id)
-                print("UPDATED TABLE 3: ", update_table.title)       
-                print("INDEX: ", update_table.index)
                 print("GET SINGLE ROW: ", update_table.loc[update_table.index])
-                print("&&&&&&&&&&&&&&&&")
                 selected_row = update_table.id
-                #best = selected_row.drop()
-                print("BLAH SELECTED: ", selected_row)
-                st.session_state["user_selected_id"] = selected_row
-                #db_row_id = update_table.loc[update_table.index]['id']
-                #print("row id: ======> ", db_row_id)
 
-                #print("MY_KEY SESSION STATE: ", st.session_state["my_key"])
-                db_row_id = st.session_state["my_key"]
-                print("row id: ======> ", db_row_id)
+                if "user_selected_id" not in st.session_state:
+                    st.session_state["user_selected_id"] = selected_row
+               
+                #db_row_id = st.session_state["my_key"]
 
                 database_control.update_single_row(
                     cnx, 
                     st.session_state["user_selected_id"],
                     st.session_state["my_key"])
+                print("----------------")
+                print("----------------")
                 
-                print("----------------")
-                print("----------------")
-                    
+                #=========================================================
+                # UPDATE TAKE 2.
+                # https://github.com/DataThinkers/Data-Analytics-Using-MySQL/blob/main/Web_App_crud.py
+                # st.subheader("Update2")
+                # # st.dataframe.items(df)
+                # st.dataframe(df)
+                # # item_map = {item.rowid: item for item in items}
+                # for key, value in df.items():
+                #     print("EACH ITEM KEY: ", key)
+                #     print("EACH ITEM VALUE: ", value)
+
+                # print("ITEM_MAP: ", item_map)
+
+                # item_id = st.selectbox(
+                #     "Which entry to update?",
+                #     item_map.keys()                    
+                #     )
+                # print("ITEM ID TO UPDATE: ", item_id)
+
+                # item_to_update = item_map[item_id]
+                # with st.form():
+                #     title = st.text_input(
+                #         "Title: ")
+                #     doc_type = st.selectbox("Select one ", res.title)
+                #     category = st.text_input("Category: ")
+                #     symptom = st.text_area("Symptom: ")
+                #     resolution = st.text_area("Resolution: ")
+
+                # if st.button("Update"):
+                #     sql="update users set name=%s, email=%s where id =%s"
+                #     val=(name,email,id)
+                #     mycursor.execute(sql,val)
+                #     mydb.commit()
+                #     st.success("Record Updated Successfully!!!")
+
+                #--------------------------------------------
+                # UPDATE. TAKE 3.
+                with st.form("data_editor_form"):
+                    st.caption("Edit the dataframe below")
+                    edited = st.data_editor(
+                        df, 
+                        key="my_key2",
+                        use_container_width=True, 
+                        num_rows="dynamic"
+                        )
+                    submit_button = st.form_submit_button("Submit")
+
+                if submit_button:
+                    try:
+                        print("EDITED 1: ", edited.loc[edited.index])
+                        print("MY_KEY2: ", st.session_state["my_key2"])
+                        # for i in edited["edited_rows"].items():
+                        #     print("EACH I: ", i)
+                        test1 =  st.session_state["my_key2"]
+                        print("OK")
+                        print("OK2: ", test1.items())
+                        print("OK3: ", test1['edited_rows'].items())
+                        print("OK4: ", len(test1['edited_rows']))
+                        
+                        for key, value in test1.items():
+                            print("KEY: ", key)
+                            print("VALUE: ", value)
+
+                        print("KEEEYYYY: ", test1)
+
+                        if st.write(st.session_state["my_key2"])["edited_rows"]:
+                            print("EDITED ROWS: ", st.session_state["my_key2"]['edited_rows'])
+                        if st.write(st.session_state["my_key"])["deleted_rows"]:
+                            print("DELETED ROWS: ", st.session_state["my_key2"]['deleted_rows'])
+
+                        #Note the quote_identifiers argument for case insensitivity
+                        ### session.write_pandas(edited, "ESG_SCORES_DEMO", overwrite=True, quote_identifiers=False)
+                        # database_control.update_single_row2(cnx, edited )
+                        database_control.update_single_row(cnx, 
+                            st.session_state["user_selected_id"],
+                            st.session_state["my_key"]
+                        )
+                        st.success("Table updated")
+                        st.write("Deleted Rows: ", edited)
+                        #time.sleep(5)
+                    except:
+                        st.warning("Error updating table")
+                    #display success message for 5 seconds and update the table to reflect what is in Snowflake
+                    st.rerun()            
 
                 # DATAFRAME EXPLORER. TEMP DISABLED. GOOD.
                 # filtered_df = dataframe_explorer(df, case=False)
