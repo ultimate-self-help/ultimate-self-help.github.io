@@ -159,8 +159,16 @@ def app():
                 # #--------------------------------------------
 
                 # update.
-                def callbackupdate(update):
-                    print("UPdate: ", update)
+                def callbackupdate():
+                    # https://stackoverflow.com/questions/75595820/streamlit-how-can-i-retrieve-edited-dataframe-in-callback
+                    print("UPDATE ~~~~~~: ")
+                    #my_key = st.session_state["my_key"]
+                    #t = type_util.convert_anything_to_df(t)
+                    # print("DB ROW ID ", id)
+                    # for d in id:
+                    #     print("DDDDD: ", d)
+                    #_apply_dataframe_edits(t, st.session_state['st_t'])make_use_of_edited_dataframe(t)
+                    print("IDDDDDD: ", st.session_state["user_selected_id"])
                     
                 
 
@@ -168,7 +176,10 @@ def app():
                 update_table = st.data_editor(
                     df, 
                     num_rows='dynamic',
-                    key="my_key"
+                    key="my_key",
+                    # args=(),
+                    on_change=callbackupdate,
+                    #  kwargs=dict(id-[])
                 )
                 # Good Demo To Use Later:
                 #https://streamlit-feature-demos-data-editor-foundationdemo-bhdzga.streamlit.app/#compatible-with-st-form
@@ -183,9 +194,23 @@ def app():
                 print("UPDATED TABLE 3: ", update_table.title)       
                 print("INDEX: ", update_table.index)
                 print("GET SINGLE ROW: ", update_table.loc[update_table.index])
+                print("&&&&&&&&&&&&&&&&")
+                selected_row = update_table.id
+                #best = selected_row.drop()
+                print("BLAH SELECTED: ", selected_row)
+                st.session_state["user_selected_id"] = selected_row
+                #db_row_id = update_table.loc[update_table.index]['id']
+                #print("row id: ======> ", db_row_id)
+
+                #print("MY_KEY SESSION STATE: ", st.session_state["my_key"])
+                db_row_id = st.session_state["my_key"]
+                print("row id: ======> ", db_row_id)
+
+                database_control.update_single_row(
+                    cnx, 
+                    st.session_state["user_selected_id"],
+                    st.session_state["my_key"])
                 
-                print("MY_KEY SESSION STATE: ", st.session_state["my_key"])
-                database_control.update_single_row(cnx, st.session_state["my_key"])
                 print("----------------")
                 print("----------------")
                     

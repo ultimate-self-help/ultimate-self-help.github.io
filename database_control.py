@@ -85,30 +85,45 @@ def add_row(conn, title, doc_type, category, symptom, resolution):
         print("Error: ", e)
     conn.close()
 
-def update_single_row(conn, data ):
-    # id = data.id
-    # title = data.title
-    # doc_type = data.doc_type
-    # category = data.category
+def update_single_row(conn, db_id, data ):
+    # THIS IS CRAZY. MUST BE A BETTER WAY!!!
+    #id = 1
+    # title = "title223468"
+    # doc_type = "Work Instructions"
+    # category = "Cat2145"
 
     # WORKING FOR VALUES. NO ID.
     # for row in data["edited_rows"].values():
     #     print("ROW: ", row['title'])
 
+    print("IDD3242424DDDD ARRAY: ", db_id)
+   
     d =  data["edited_rows"].items()
+    db1 = conn.cursor()
     for key, value in d:
-        print("DB Id: ", key) # 0
-        print("VALUE: ", value) # {'title:'222'}
-        for key, value in value.items():
-             print("v2: ", key) # 'title
-             print("v2: ", value) # '222'
+        # print("DB Id: ", key) # 0
+        # print("VALUE: ", value) # {'title:'222'}
+        #for key, value in db_id:
+        print("ID ITEMS ========= ", db_id.items())
+        for i in db_id.items():
+            print("EACH ID: ", i)
+            
+        print("ID KEY: ", db_id.keys)
+        print("ID VALUES: ", db_id.values)
+        #print("ID Value: ", value)
+        
 
-        #c = conn.cursor()
-        # # c.execute(f"UPDATE tech_support SET id={id}, title={title}, doc_type={doc_type}, category={category}")
-        # #c.executemany("UPDATE tech_support SET title = ? doc_type = ? category = ? WHERE id = ?", (title, doc_type, category, id))
-        # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
-        # c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (value, key))
-        # conn.commit()   
+        db_row_id = key
+        for key, value in value.items():
+            print("db_row_id: ", db_row_id)
+            print("key: ", key) # 'title
+            print("new value: ", value) # '222'
+            
+            # WORKING OK. c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
+            db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, id))
+            conn.commit()
+            print("OK. Updated DB")
+          
 
 # Delete. Single Row.
 def delete_row(conn, ids):
