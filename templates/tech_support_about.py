@@ -17,7 +17,7 @@ from streamlit_extras.dataframe_explorer import dataframe_explorer
 def app():
     st.session_state.show_edit_button = True
     st.session_state.user_selected_row = {}
-    st.session_state.user_selected_single = {}
+    st.session_state.user_selected_title = ""
     does_db_and_tables_exist = False
 
     def update_db_with_selected_rows(selected_rows):
@@ -27,9 +27,11 @@ def app():
 
         st.session_state.user_selected_row = selected_rows
         
+        # CLEAN DATA.
         print("SELECTED: ", st.session_state.user_selected_row['title'].values)
-        st.session_state.user_selected_single = st.session_state.user_selected_row.values
-        print("CLEANED: ", st.session_state.user_selected_single)
+        ### st.session_state.user_selected_single = st.session_state.user_selected_row.values
+        st.session_state.user_selected_title = st.session_state.user_selected_row['title'].values
+        print("CLEANED: ", st.session_state.user_selected_title)
 
         if len(selected_rows) > 0:
             st.session_state.show_edit_button = True
@@ -83,7 +85,7 @@ def app():
             #print("GET ALL DOC_TYPE: ",  res)
             #date_created = st.date_input("Date Created")
             print("SELECTED TITLE: ", st.session_state.user_selected_row)
-            title = st.text_input("Title: ")
+            title = st.text_input("Title: ", value=st.session_state.user_selected_title)
             doc_type = st.selectbox("Select one ", doc_types.title)
             category = st.text_input("Category: ")
             symptom = st.text_area("Symptom: ")
@@ -95,6 +97,7 @@ def app():
                 # database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
                 # st.success('Updated OK') 
                 # st.rerun()
+            
     
     dataframe_with_selections(df)
     #selection = dataframe_with_selections(df)
