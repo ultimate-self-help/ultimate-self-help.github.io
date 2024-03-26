@@ -3,6 +3,10 @@
 TO RUN : LOCAL:
 streamlit run app.py --ui.hideSidebarNav True
 
+---
+## To_Do:
+Buy Me a Kofi. (No surcharge / fee).
+https://www.youtube.com/watch?v=Ek82r3EEMs4
 
 ---
 
