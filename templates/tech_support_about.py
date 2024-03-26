@@ -237,18 +237,38 @@ def app():
 
             if submit_edit_button:
                 print("EDIT: ", title)
-                st.session_state.user_selected_row['doc_type'] = doc_type
-                st.session_state.user_selected_row['title'] = title
-                st.session_state.user_selected_row['category'] = category
-                st.session_state.user_selected_row['symptom'] = symptom
-                st.session_state.user_selected_row['resolution'] = resolution
+                # if 'edited_row' not in st.session_state:
+                #     st.session_state.edited_row = st.dataframe()
+                
+                # st.session_state.edited_row['id'] = db_id    
+                # st.session_state.edited_row['doc_type'] = doc_type
+                # st.session_state.edited_row['title'] = title
+                # st.session_state.edited_row['category'] = category
+                # st.session_state.edited_row['symptom'] = symptom
+                # st.session_state.edited_row['resolution'] = resolution
+
+                # Convert from session_state (df) to dataframe. Why?
+                data = {
+                    'id': db_id,                    
+                    'doc_type': doc_type,
+                    'title': title,
+                    'category': category,
+                    'symptom': symptom,
+                    'resolution': resolution
+                    }
+                #df4 = st.dataframe(data)
+
+                print("DF4: ", data)
+
                 #database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
                 
                 # database_control.update_single_row(cnx, 
                 #     st.session_state["user_selected_id"],
                 #     st.session_state["my_key"]
                 # )
-                database_control.update_single_row3(cnx, st.session_state.user_selected_row)
+                #print("EDITED ROW: ", st.session_state.edited_row)
+                #print("EDITED ROW: ", st.session_state.edited_row['id'])
+                database_control.update_single_row3(cnx, data)
 
 
 

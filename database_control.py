@@ -97,11 +97,19 @@ def update_single_row2(conn, data):
     print("DATA PASSED IN: ", data)
 
 def update_single_row3(conn, data):
+    print("")
+    print("")
     print("DATA TO UDPATE: ", data)
+    print("DATA TO UDPATE: ", data['title'])
 
-    # db1 = conn.cursor()
+    # for key, value in data:
+    #     print("DATA TO UDPATE: ", key)
+    #     print("DATA TO UDPATE: ", value)
+
+    db1 = conn.cursor()
     # db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
-    # conn.commit()
+    db1.execute(f'''UPDATE tech_support SET title = ?, doc_type = ?, category = ?, symptom = ?, resolution = ?  WHERE id = ?''', (data['title'], data['doc_type'], data['category'], data['symptom'], data['resolution'],  data['id']))
+    conn.commit()
     print("OK. Updated DB")
 
 
