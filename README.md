@@ -32,4 +32,12 @@ https://www.youtube.com/watch?v=i6gt2OKezOQ
 
 Full Stack Streamlit App (Inc Backend and Dockerized)
 https://github.com/gerardrbentley/streamlit-fullstack/blob/main/streamlit_app/Dockerfile
+
+---
+New Feature:
+Form data in URL.
+https://github.com/PaleNeutron/streamlit-ext
+
+Tags: Autocomplete:
+https://github.com/gagan3012/streamlit-tags
 ===
