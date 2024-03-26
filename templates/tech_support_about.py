@@ -18,8 +18,8 @@ def app():
     if "show_edit_button" not in st.session_state:
         st.session_state.show_edit_button = False
 
-    if "user_selected_row" not in st.session_state:
-        st.session_state.user_selected_row = []
+    # if "user_selected_row" not in st.session_state:
+    #     st.session_state.user_selected_row = []
     
     if "user_selected_title" not in st.session_state:
         st.session_state.user_selected_title = ""
@@ -35,30 +35,34 @@ def app():
         #return updated_row_df
         # return st.session_state.user_selected_title
         to_return = st.session_state.user_selected_row
-        first_in_list = {}
-        if len(to_return) > 0:
-            print("===> DATA CALLBACK: ", to_return )
-            print("                                    ")
-            print("===> DATA CALLBACK TITLE: ",type(to_return))
-            first_in_list = list(to_return)[0]
-            print("===> DATA CALLBACK TITLE LIST: ", first_in_list)
-        else:
-            first_in_list = {}
+
+        # WAS WORKING.
+        #first_in_list = {}
+        # if len(to_return) > 0:
+        #     print("===> DATA CALLBACK: ", to_return )
+        #     print("                                    ")
+        #     print("===> DATA CALLBACK TITLE: ",type(to_return))
+        #     first_in_list = list(to_return)[0]
+        #     print("===> DATA CALLBACK TITLE LIST: ", first_in_list)
+        # else:
+        #     first_in_list = {}
         #print("GET ####################", first_in_list['title'])
-        return first_in_list
+        # return first_in_list
+        return to_return
     
 
     def update_db_with_selected_rows(user_selected_rows):
-        print("TO UPDATE 1: ", user_selected_rows)
-        print("TO UPDATE 2: ", user_selected_rows['id'].values)
+        print("TO UPDATE 1: ", user_selected_rows) # [{}{}]
+        print("TO UPDATE 2 ID: ", user_selected_rows['id'].values)
         row_dict = {}
         if len(user_selected_rows) < 1:
-           pass
+           row_dict = user_selected_rows.to_dict(orient='records')
         if len(user_selected_rows) > 0: 
             row_dict = user_selected_rows.to_dict(orient='records')
-        print("MY NEW DICT ====================> ", row_dict)
+            row_dict = row_dict[0] # From list with multiple dicts to single dict.
+        print("MY NEW DICT ====================> ", row_dict) # Now {}
               
-        print("ROW 2 : ", st.session_state.user_selected_row)
+        #print("ROW 2 : ", st.session_state.user_selected_row)
         st.session_state.user_selected_row =  row_dict
         print("DATA CALLBACK 4555: ", st.session_state.user_selected_row)
 
@@ -135,14 +139,27 @@ def app():
 
         selected_indices = list(np.where(edited_df.Select)[0])
         selected_rows = df[edited_df.Select]
-        update_db_with_selected_rows(selected_rows)
+
+        # MY ADDITIONS
+        if len(selected_rows) < 1:
+           row_dict = selected_rows.to_dict()
+        if len(selected_rows) > 0: 
+            row_dict = selected_rows.to_dict()
+            row_dict = row_dict[0] # From list with multip
+        st.session_state.user_selected_row = row_dict
+
+        print("")
+        print("")
+        print("1. EDITED_DF: ", selected_rows)
+        #-----------------------
+        ###update_db_with_selected_rows(selected_rows)
         return {"selected_rows_indices": selected_indices, "selected_rows": selected_rows}
 
 
     cnx = database_control.create_connection()
-    df = pd.read_sql_query("SELECT * FROM tech_support", cnx)            
-    st.subheader("Hi")
+    df = pd.read_sql_query("SELECT * FROM tech_support", cnx)    
 
+    st.subheader("Hi")
 
     doc_types = database_control.doc_type_get_all(cnx)
     popover_insert = st.popover("Add New", use_container_width=True)  
@@ -163,34 +180,90 @@ def app():
             st.success('Updated OK') 
 #           st.rerun()
             
-    if st.session_state.show_edit_button: 
-        popover_update = st.popover("Update", use_container_width=True)  
-        with popover_update.form("Update Entry", clear_on_submit=True):
-            item_current = callback_populate_form()
-            if len(item_current):
-                print("")
-                print("CURRENT ITEM: ", item_current['title'])
-                title = st.text_input("Title: ", value=item_current['title'])
-                #doc_type = st.selectbox("Select one ", doc_types.title, value=item_current['doc_types']['title'])
-                doc_type = st.selectbox("Select one ", doc_types.title) #.bug. Fix later.
-                category = st.text_input("Category: ", value=item_current['category'])
-                symptom = st.text_area("Symptom: ", value=item_current['symptom'])
-                resolution = st.text_area("Resolution: ", item_current['resolution'])
+    # VERSION 1.
+    # if st.session_state.show_edit_button: 
+    #     popover_update = st.popover("Update", use_container_width=True)  
+    #     with popover_update.form("Update Entry", clear_on_submit=True):
+    #         item_current = callback_populate_form()
+    #         if len(item_current):
+    #             print("")
+    #             print("CURRENT ITEM: ", item_current['title'])
+    #             title = st.text_input("Title: ", value=item_current['title'])
+    #             #doc_type = st.selectbox("Select one ", doc_types.title, value=item_current['doc_types']['title'])
+    #             doc_type = st.selectbox("Select one ", doc_types.title) #.bug. Fix later.
+    #             category = st.text_input("Category: ", value=item_current['category'])
+    #             symptom = st.text_area("Symptom: ", value=item_current['symptom'])
+    #             resolution = st.text_area("Resolution: ", item_current['resolution'])
             
-            else:
-                title = st.text_input("Title: ")
-                doc_type = st.selectbox("Select one ", doc_types.title)
-                category = st.text_input("Category: ")
-                symptom = st.text_area("Symptom: " )
-                resolution = st.text_area("Resolution: ")
+    #         else:
+    #             title = st.text_input("Title: ")
+    #             doc_type = st.selectbox("Select one ", doc_types.title)
+    #             category = st.text_input("Category: ")
+    #             symptom = st.text_area("Symptom: " )
+    #             resolution = st.text_area("Resolution: ")
 
-            submit_update = st.form_submit_button("Update")
+    #         submit_update = st.form_submit_button("Update")
 
-            if submit_update:
-                print("Title to save ", title)
-                # database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
-                # st.success('Updated OK') 
-                # st.rerun()
+    #         if submit_update:
+    #             print("Title to save ", title)
+    #             # database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
+    #             # st.success('Updated OK') 
+    #             # st.rerun()
+            
+    # VERSION 2.
+    # popover_update = st.popover("Update", use_container_width=True)  
+    # with st.form("Update Entry", clear_on_submit=True):
+    #     item_current = callback_populate_form()
+    #     if len(item_current):
+    #         print("")
+    #         print("CURRENT ITEM: ", item_current['title'])
+    #         title = st.text_input("Title: ", value=item_current['title'])
+    #         #doc_type = st.selectbox("Select one ", doc_types.title, value=item_current['doc_types']['title'])
+    #         doc_type = st.selectbox("Select one ", doc_types.title) #.bug. Fix later.
+    #         category = st.text_input("Category: ", value=item_current['category'])
+    #         symptom = st.text_area("Symptom: ", value=item_current['symptom'])
+    #         resolution = st.text_area("Resolution: ", item_current['resolution'])
+        
+    #     else:
+    #         title = st.text_input("Title: ")
+    #         doc_type = st.selectbox("Select one ", doc_types.title)
+    #         category = st.text_input("Category: ")
+    #         symptom = st.text_area("Symptom: " )
+    #         resolution = st.text_area("Resolution: ")
+
+    #     submit_update = st.form_submit_button("Update")
+
+    #     if submit_update:
+    #         print("Title to save ", title)
+    #         # database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
+    #         # st.success('Updated OK') 
+    #         # st.rerun()
+            
+    # VERSION 3.
+    # with st.form("Update Form"):
+        # temp = st.session_state.user_selected_row
+        # print("TYPE OF ", temp)
+        #print("TITLE zzzzzzz: ", st.session_state.user_selected_row['title'])
+    # Initialize session state for 'ss_text' when the page first renders
+    if 'user_selected_row' not in st.session_state:
+        st.session_state.user_selected_row = "ON RENDER"
+
+    title = st.text_input(label="Title: ", 
+                            value=st.session_state.user_selected_row,
+                            on_change=lambda: setattr(st.session_state, 'user_selected_row', st.session_state.key_ss_text),
+                            key='key_ss_text'
+                            )
+    st.write(f"You set ss_text to: `{title}`")
+
+        # submit_update = st.form_submit_button("Update")
+
+        # if submit_update:
+        #     print("Title to save ", title)
+        #     st.write(f"You set user_selected_row to: `{title}")
+        #     # database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
+        #     # st.success('Updated OK') 
+        #     # st.rerun()
+
             
     # if st.session_state.show_edit_button:
     #     st.button("Edit")
