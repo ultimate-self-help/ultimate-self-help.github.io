@@ -96,6 +96,14 @@ def delete_single_row(conn, data):
 def update_single_row2(conn, data):    
     print("DATA PASSED IN: ", data)
 
+def update_single_row3(conn, data):
+    print("DATA TO UDPATE: ", data)
+
+    # db1 = conn.cursor()
+    # db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
+    # conn.commit()
+    print("OK. Updated DB")
+
 
 def update_single_row(conn, db_id, data ):
     # THIS IS CRAZY. MUST BE A BETTER WAY!!!

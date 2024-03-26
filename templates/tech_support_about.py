@@ -164,6 +164,94 @@ def app():
             print("3 GET DF CELL: ",st.session_state.user_selected_row['title'] )
         else:
             st.session_state.user_selected_row = []
+        
+        #-------------
+        if 'user_selected_row' not in st.session_state:
+            st.session_state.user_selected_row = pd.DataFrame()
+            
+        if len(st.session_state.user_selected_row) > 0:  
+            # doc_type = st.selectbox("Select one ", doc_types.title, value=item_current['doc_types']['title'])
+            # doc_type = st.selectbox("Select one ", doc_types.title) #.bug. Fix later.
+
+            doc_type = st.selectbox("Doc Type: ", doc_types.title)
+                    # value=st.session_state.user_selected_row['doc_type'],
+                    # on_change=lambda: setattr(
+                    #     st.session_state,
+                    #     'user_selected_row', 
+                    #     st.session_state.key_doc_type
+                    #     ),
+                    # key='key_doc_type'
+                    # )
+            
+            title = st.text_input(label="Title: ", 
+                    value=st.session_state.user_selected_row['title'],
+                    on_change=lambda: setattr(
+                        st.session_state,
+                        'user_selected_row', 
+                        st.session_state.key_title
+                        ),
+                    key='key_title'
+                    )
+            
+            category = st.text_input(label="Category: ", 
+                value=st.session_state.user_selected_row['category'],
+                on_change=lambda: setattr(
+                    st.session_state, 
+                    'key_cat',
+                     st.session_state.user_selected_temp_key
+                    ),
+                key='key_cat'
+                )
+            
+            symptom = st.text_input(label="Symptom: ", 
+                    value=st.session_state.user_selected_row['symptom'],
+                    on_change=lambda: setattr(
+                        st.session_state,
+                        'user_selected_row', 
+                        st.session_state.key_symptom
+                        ),
+                    key='key_symptom'
+                    )
+        
+            resolution = st.text_input(label="resolution: ", 
+                    value=st.session_state.user_selected_row['resolution'],
+                    on_change=lambda: setattr(
+                        st.session_state,
+                        'user_selected_row', 
+                        st.session_state.key_resolution
+                        ),
+                    key='key_resolution'
+                    )
+            
+            db_id = st.text_input(label="Id: ", 
+                    value=st.session_state.user_selected_row['id'],
+                    on_change=lambda: setattr(
+                        st.session_state,
+                        'user_selected_row', 
+                        st.session_state.key_id
+                        ),
+                    key='key_id'
+                    )
+            
+            submit_edit_button = st.button("Submit", key="submit_edit_button")
+
+            if submit_edit_button:
+                print("EDIT: ", title)
+                st.session_state.user_selected_row['doc_type'] = doc_type
+                st.session_state.user_selected_row['title'] = title
+                st.session_state.user_selected_row['category'] = category
+                st.session_state.user_selected_row['symptom'] = symptom
+                st.session_state.user_selected_row['resolution'] = resolution
+                #database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
+                
+                # database_control.update_single_row(cnx, 
+                #     st.session_state["user_selected_id"],
+                #     st.session_state["my_key"]
+                # )
+                database_control.update_single_row3(cnx, st.session_state.user_selected_row)
+
+
+
         #-----------------------
         ###update_db_with_selected_rows(selected_rows)
         return {"selected_rows_indices": selected_indices, "selected_rows": selected_rows_df}
@@ -258,8 +346,8 @@ def app():
         # print("TYPE OF ", temp)
         #print("TITLE zzzzzzz: ", st.session_state.user_selected_row['title'])
     # Initialize session state for 'ss_text' when the page first renders
-    if 'user_selected_row' not in st.session_state:
-        st.session_state.user_selected_row = pd.DataFrame()
+    # if 'user_selected_row' not in st.session_state:
+    #     st.session_state.user_selected_row = pd.DataFrame()
         # {
         #     'id':0,
         #     'date_created':'2024-03-01',
@@ -268,18 +356,18 @@ def app():
         #st.session_state.user_selected_row = df
 
     
-    temp = st.session_state.user_selected_row
-    print ("TEMP1 : ", temp)
-    print("TEMP TYPE: ", type(temp))
+    # temp = st.session_state.user_selected_row
+    # print ("TEMP1 : ", temp)
+    # print("TEMP TYPE: ", type(temp))
 
-    if 'user_selected_row' not in st.session_state:
-        print("TESSSSSSSSSSSSSSSST")
-        title = st.text_input(label="Title: ", 
-                                value=temp['title'],
-                                on_change=lambda: setattr(st.session_state, 'user_selected_row', st.session_state.key_ss_text),
-                                key='key_ss_text'
-                                )
-        st.write(f"You set ss_text to: `{title}`")
+    # if 'user_selected_row' not in st.session_state:
+    #     print("TESSSSSSSSSSSSSSSST")
+    #     title = st.text_input(label="Title: ", 
+    #                             value=temp['title'],
+    #                             on_change=lambda: setattr(st.session_state, 'user_selected_row', st.session_state.key_ss_text),
+    #                             key='key_ss_text'
+    #                             )
+    #     st.write(f"You set ss_text to: `{title}`")
 
         # submit_update = st.form_submit_button("Update")
 
