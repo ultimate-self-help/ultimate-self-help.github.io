@@ -13,16 +13,19 @@ from pygwalker.api.streamlit import StreamlitRenderer, init_streamlit_comm # New
 import numpy as np
 from streamlit_extras.dataframe_explorer import dataframe_explorer
 
-
 def app():
     if "show_edit_button" not in st.session_state:
         st.session_state.show_edit_button = False
 
     # if "user_selected_row" not in st.session_state:
-    #     st.session_state.user_selected_row = []
+    # st.session_state.user_selected_row = {}
     
     if "user_selected_title" not in st.session_state:
         st.session_state.user_selected_title = ""
+
+    # if 'user_selected_row' not in st.session_state:
+    #     st.session_state.user_selected_row = {}
+
 
     #does_db_and_tables_exist = False
 
@@ -138,22 +141,32 @@ def app():
         )
 
         selected_indices = list(np.where(edited_df.Select)[0])
-        selected_rows = df[edited_df.Select]
+        selected_rows_df = df[edited_df.Select]
 
         # MY ADDITIONS
-        if len(selected_rows) < 1:
-           row_dict = selected_rows.to_dict()
-        if len(selected_rows) > 0: 
-            row_dict = selected_rows.to_dict()
-            row_dict = row_dict[0] # From list with multip
-        st.session_state.user_selected_row = row_dict
+        # row_dict = {}
+        # if len(selected_rows) < 1:
+        #    row_dict = selected_rows.to_dict()
+        # if len(selected_rows) > 0: 
+        #     row_dict = selected_rows.to_dict()
+        #     row_dict = row_dict[0] # From list with multip
+        #row_dict = selected_rows.to_dict()
 
+        #st.session_state.user_selected_row = row_dict
+        ### list_to_dict = selected_rows.to_dict(orient='records')
+        #st.session_state.user_selected_row = selected_rowslist_to_dict[0]
         print("")
         print("")
-        print("1. EDITED_DF: ", selected_rows)
+        if len(selected_rows_df) > 0:
+            print("0. SELECTED ROW: ", selected_rows_df)
+            print("1. EDITED_DF: ", selected_rows_df.iloc[0])
+            st.session_state.user_selected_row = selected_rows_df.iloc[0]
+            print("3 GET DF CELL: ",st.session_state.user_selected_row['title'] )
+        else:
+            st.session_state.user_selected_row = []
         #-----------------------
         ###update_db_with_selected_rows(selected_rows)
-        return {"selected_rows_indices": selected_indices, "selected_rows": selected_rows}
+        return {"selected_rows_indices": selected_indices, "selected_rows": selected_rows_df}
 
 
     cnx = database_control.create_connection()
@@ -246,14 +259,27 @@ def app():
         #print("TITLE zzzzzzz: ", st.session_state.user_selected_row['title'])
     # Initialize session state for 'ss_text' when the page first renders
     if 'user_selected_row' not in st.session_state:
-        st.session_state.user_selected_row = "ON RENDER"
+        st.session_state.user_selected_row = pd.DataFrame()
+        # {
+        #     'id':0,
+        #     'date_created':'2024-03-01',
+        #    'title': 'test'
+        # }
+        #st.session_state.user_selected_row = df
 
-    title = st.text_input(label="Title: ", 
-                            value=st.session_state.user_selected_row,
-                            on_change=lambda: setattr(st.session_state, 'user_selected_row', st.session_state.key_ss_text),
-                            key='key_ss_text'
-                            )
-    st.write(f"You set ss_text to: `{title}`")
+    
+    temp = st.session_state.user_selected_row
+    print ("TEMP1 : ", temp)
+    print("TEMP TYPE: ", type(temp))
+
+    if 'user_selected_row' not in st.session_state:
+        print("TESSSSSSSSSSSSSSSST")
+        title = st.text_input(label="Title: ", 
+                                value=temp['title'],
+                                on_change=lambda: setattr(st.session_state, 'user_selected_row', st.session_state.key_ss_text),
+                                key='key_ss_text'
+                                )
+        st.write(f"You set ss_text to: `{title}`")
 
         # submit_update = st.form_submit_button("Update")
 
