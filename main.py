@@ -10,20 +10,15 @@ import templates.tools_about as tools_about
 import templates.tools_weather as tools_weather
 import templates.tech_support_about as tech_support_about
 
+from st_pages import hide_pages, show_pages, Page
+
 st.set_page_config(
     page_title="Ultimate-Self-Help",
     page_icon="🐶",
     layout='wide'
 )
 
-# hide_st_style = """
-#             <style>
-#             #MainMenu {visibility: hidden;}
-#             footer {visibility: hidden;}
-#             header {visibility: hidden;}
-#             </style>
-#             """
-# st.markdown(hide_st_style, unsafe_allow_html=True)
+hide_pages(["new","main"])
 
 if "my_input" not in st.session_state:
     st.session_state['my_input'] = ""

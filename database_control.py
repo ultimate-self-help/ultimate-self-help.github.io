@@ -85,16 +85,16 @@ def add_row(conn, title, doc_type, category, symptom, resolution):
         print("Error: ", e)
     conn.close()
 
-def delete_single_row(conn, data):
-    d = data["deleted_rows"].items()
-    print("To Delete: ", d)
+# def delete_single_row(conn, data):
+#     d = data["deleted_rows"].items()
+#     print("To Delete: ", d)
 
-    for i in d:
-        print("To Delete Each: ", i)
+#     for i in d:
+#         print("To Delete Each: ", i)
 
 
-def update_single_row2(conn, data):    
-    print("DATA PASSED IN: ", data)
+# def update_single_row2(conn, data):    
+#     print("DATA PASSED IN: ", data)
 
 def update_single_row3(conn, data):
     print("")
@@ -113,60 +113,60 @@ def update_single_row3(conn, data):
     print("OK. Updated DB")
 
 
-def update_single_row(conn, db_id, data ):
-    # THIS IS CRAZY. MUST BE A BETTER WAY!!!
-    #id = 1
-    # title = "title223468"
-    # doc_type = "Work Instructions"
-    # category = "Cat2145"
+# def update_single_row(conn, db_id, data ):
+#     # THIS IS CRAZY. MUST BE A BETTER WAY!!!
+#     #id = 1
+#     # title = "title223468"
+#     # doc_type = "Work Instructions"
+#     # category = "Cat2145"
 
-    # WORKING FOR VALUES. NO ID.
-    # for row in data["edited_rows"].values():
-    #     print("ROW: ", row['title'])
+#     # WORKING FOR VALUES. NO ID.
+#     # for row in data["edited_rows"].values():
+#     #     print("ROW: ", row['title'])
 
-    #print("IDD3242424DDDD ARRAY: ", db_id)
+#     #print("IDD3242424DDDD ARRAY: ", db_id)
    
-    d =  data["edited_rows"].items()
-    db1 = conn.cursor()
+#     d =  data["edited_rows"].items()
+#     db1 = conn.cursor()
     
-    row_index = 0
-    real_db_id = 0
+#     row_index = 0
+#     real_db_id = 0
 
-    for key, value in d:
-        #print("dataAAAAAA ", key)
-        row_index = key
+#     for key, value in d:
+#         #print("dataAAAAAA ", key)
+#         row_index = key
         
-    for key, value in db_id.items():
-        #print("EACH ID: ", key)
-        if row_index == key:
-            #print("CORRECT DB ID IS ", value)
-            real_db_id = value
+#     for key, value in db_id.items():
+#         #print("EACH ID: ", key)
+#         if row_index == key:
+#             #print("CORRECT DB ID IS ", value)
+#             real_db_id = value
     
 
-    for key, value in d:
+#     for key, value in d:
 
-        # row_index = key
-        # for key, value in db_id.items():
-        #     print("EACH ID: ", key)
-        #     if row_index == key:
-        #         print("CORRECT DB ID IS ", value)
-        #         real_db_id = value
+#         # row_index = key
+#         # for key, value in db_id.items():
+#         #     print("EACH ID: ", key)
+#         #     if row_index == key:
+#         #         print("CORRECT DB ID IS ", value)
+#         #         real_db_id = value
 
-        #print("ID KEY: ", db_id.keys)
-        #print("ID VALUES: ", db_id.values)
-        #print("ID Value: ", value)
+#         #print("ID KEY: ", db_id.keys)
+#         #print("ID VALUES: ", db_id.values)
+#         #print("ID Value: ", value)
         
 
-        #db_row_id = key
-        for key, value in value.items():
-            #print("db_row_id: ", db_row_id)
-            print("key: ", key) # 'title
-            print("new value: ", value) # '222'
+#         #db_row_id = key
+#         for key, value in value.items():
+#             #print("db_row_id: ", db_row_id)
+#             print("key: ", key) # 'title
+#             print("new value: ", value) # '222'
             
-            # WORKING OK. c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
-            db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
-            conn.commit()
-            print("OK. Updated DB")
+#             # WORKING OK. c.execute("""UPDATE tech_support SET title = ?, doc_type = ?, category = ? WHERE id = ?""", (title, doc_type, category, id))
+#             db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
+#             conn.commit()
+#             print("OK. Updated DB")
           
 
 # Delete. Single Row.
