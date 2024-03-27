@@ -1,8 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_option_menu import option_menu
-
-import home
+import home as home
 import pages.dog_parks_about as dog_parks_about
 import pages.donate as donate
 import pages.about as about
@@ -18,16 +17,21 @@ st.set_page_config(
     layout='wide'
 )
 
-hide_pages(["new","main", "about", "tools_weather", "donate", "dog_parks_about","tech_support_about", "tools_about"])
+# Hide top right default 'deploy' menu for production.
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# Hide specific pages from default sidebar.
+hide_pages(["new","main", "home", "about", "tools_weather", "donate", "dog_parks_about","tech_support_about", "tools_about"])
 
 if "my_input" not in st.session_state:
     st.session_state['my_input'] = ""
-
-# my_input = st.text_input("Input a text here", st.session_state["my_input"])
-# submit = st.button("Submit")
-# if submit:
-#     st.session_state["my_input"] = my_input
-#     st.write("You have entered: ", my_input)
 
 class MultiApp:
     def __init__(self):
@@ -42,13 +46,14 @@ class MultiApp:
 
     def run():
         with st.sidebar:
-            # Icons from Twemoji.
+            # Icons from Twemoji. Failed.
+            #OK. https://icons.getbootstrap.com/?q=house
             app = option_menu(
-                menu_title='Welcome ',
+                menu_title='Welcome to USH',
                 options=['Home','Dog Parks','Weather','Donate','About'],
-                icons=['house-fill','trophy-fill','chat-fill','info-circle-fill', 'house-fill','person-circle','trophy-fill'],
-                menu_icon='chat-text-fill',
-                default_index=2,
+                icons=['house','signpost-2','cloud-sun','piggy-bank', 'info-circle'],
+                menu_icon='person-raised-hand',
+                default_index=0,
                 styles={
                     "container": {"padding": "5!important","background-color":'black'},
             "icon": {"color": "white", "font-size": "23px"}, 

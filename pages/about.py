@@ -13,7 +13,7 @@ def app():
     st.write("This site will be taken offline if any signs of technical abuse or heavy financial loss.")
     st.write("")
     st.write("Started: 2024Jan02")
-    st.write("Last update: 2024Mar21.")
+    st.write("Last update: 2024Mar27.")
 
     st.write("Features will grow over time.")
             

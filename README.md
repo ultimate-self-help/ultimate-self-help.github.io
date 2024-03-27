@@ -39,6 +39,9 @@ https://github.com/nelson123-lab/Hive
 St-Pages Add On. (Used to hide)
 https://github.com/blackary/st_pages
 
+Streamlit Emoji / icons
+https://emojidb.org/dog-emojis?user_typed_query=1&utm_source=user_search
+
 ---
 New Feature:
 Form data in URL.
