@@ -197,8 +197,8 @@ def app():
                 value=st.session_state.user_selected_row['category'],
                 on_change=lambda: setattr(
                     st.session_state, 
-                    'key_cat',
-                     st.session_state.user_selected_temp_key
+                    'user_selected_row',
+                     st.session_state.key_cat
                     ),
                 key='key_cat'
                 )
@@ -247,7 +247,6 @@ def app():
                 # st.session_state.edited_row['symptom'] = symptom
                 # st.session_state.edited_row['resolution'] = resolution
 
-                # Convert from session_state (df) to dataframe. Why?
                 data = {
                     'id': db_id,                    
                     'doc_type': doc_type,
@@ -256,9 +255,6 @@ def app():
                     'symptom': symptom,
                     'resolution': resolution
                     }
-                #df4 = st.dataframe(data)
-
-                print("DF4: ", data)
 
                 #database_control.update_single_row(cnx, title, doc_type, category, symptom, resolution)
                 
@@ -266,8 +262,6 @@ def app():
                 #     st.session_state["user_selected_id"],
                 #     st.session_state["my_key"]
                 # )
-                #print("EDITED ROW: ", st.session_state.edited_row)
-                #print("EDITED ROW: ", st.session_state.edited_row['id'])
                 database_control.update_single_row3(cnx, data)
 
 
