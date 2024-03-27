@@ -155,53 +155,6 @@
 
 	<div id="content">
 		<div id="mainMenuBar">
-			<!-- <div>
-				<button class="my_button" onclick="dosomething(this.value)" value="ParkAll">Park (All)</button>
-			</div>
-			<div>
-				<button class="my_button" onclick="dosomething(this.value)" value="Park-Off_Leash">Park
-					(Off-Leash)</button>
-			</div>
-			<div>
-				<button class="my_button" onclick="dosomething(this.value)" value="Pet_Store">Pet Store</button>
-			</div>
-			<div>
-				<button class="my_button" onclick="dosomething(this.value)" value="Coffee">Coffee</button>
-			</div>
-			<div>
-				<button class="my_button" onclick="dosomething(this.value)" value="Vet">Vet</button>
-			</div>
-			<div>
-				<button class="my_button" onclick="dosomething(this.value)" value="Hospital">Hospital</button>
-			</div>
-		</div> -->
-
-
-
-			<!-- <input id="button1" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 800px; top: 0px; type=" button" value="Park. All"
-			onclick="dosomething(this.value)">
-
-		<input id="button2" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 700px; top: 0px; type=" button" value="Park. Off Leash"
-			onclick="dosomething(this.value)">
-
-		<input id="button3" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 500px; top: 0px; type=" button" value="Pet Store"
-			onclick="dosomething(this.value)">
-
-		<input id="button4" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 400px; top: 0px; type=" button" value="Coffee"
-			onclick="dosomething(this.value)">
-
-		<input id="button5" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 250px; top: 0px; type=" button" value="Vet"
-			onclick="dosomething(this.value)">
-
-		<input id="button6" class="custom-map-control-button"
-			style="z-index: 0; position: absolute; right: 100px; top: 0px; type=" button" value="Hospital"
-			onclick="dosomething(this.value)"> -->
-
 		</div>
 
 		<script>
@@ -217,6 +170,20 @@
 			let infoPane;
 			let userQuery = "Dog Park";/*.meme.*/
 
+			// let btn_bg_color = controlButton.style.backgroundColor = "#fff";
+			// let btn_border = controlButton.style.border = "2px solid #fff";
+			// let btn_corner = controlButton.style.borderRadius = "3px";
+			// let btn_box = controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+			// let btn_color = controlButton.style.color = "rgb(25,25,25)";
+			// let btn_cursor = controlButton.style.cursor = "pointer";
+			// let btn_font = controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+			// let btn_f_size = controlButton.style.fontSize = "16px";
+			// let btn_height = controlButton.style.lineHeight = "38px";
+			// let btn_margin = controlButton.style.margin = "8px 0 22px";
+			// let btn_pad = controlButton.style.padding = "0 5px";
+			// let btn_align = controlButton.style.textAlign = "center";
+
+
 			/* document.getElementById('button').onclick = function() {
 				alert("button was clicked ");
 			}; */
@@ -224,43 +191,174 @@
 
 
 			/**
-	 * Creates a control that recenters the map on Chicago.
-	 */
+			 * Creates a control that recenters the map on Chicago.
+			 */
 			function createCenterControl(map) {
-				const controlButton = document.createElement('button');
-
+				const controlButton = document.createElement("button");
 				// Set CSS for the control.
-				controlButton.style.backgroundColor = '#fff';
-				controlButton.style.border = '2px solid #fff';
-				controlButton.style.borderRadius = '3px';
-				controlButton.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-				controlButton.style.color = 'rgb(25,25,25)';
-				controlButton.style.cursor = 'pointer';
-				controlButton.style.fontFamily = 'Roboto,Arial,sans-serif';
-				controlButton.style.fontSize = '16px';
-				controlButton.style.lineHeight = '38px';
-				controlButton.style.margin = '8px 0 22px';
-				controlButton.style.padding = '0 5px';
-				controlButton.style.textAlign = 'center';
+				// btn_bg_color;
+				// btn_border;
+				// btn_corner;
+				// btn_box;
+				// btn_color;
+				// btn_cursor;
+				// btn_font;
+				// btn_f_size;
+				// btn_height;
+				// btn_margin;
+				// btn_pad;
+				// btn_align;
 
-				controlButton.textContent = 'Center Map';
-				controlButton.title = 'Click to recenter the map';
-				controlButton.type = 'button';
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
 
+				controlButton.textContent = "Dog Parks";
+				controlButton.title = "All";
+				controlButton.type = "button";
 				// Setup the click event listeners: simply set the map to Chicago.
-				controlButton.addEventListener('click', () => {
-					map.setCenter(chicago);
-				});
+				controlButton.addEventListener("click", () => {
+					dosomething("Dog Park")
+				})
+				return controlButton;
+			}
 
+			function createCenterControl_2(map) {
+				const controlButton = document.createElement("button");
+				// Set CSS for the control.
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
+				controlButton.textContent = "Off-Leash";
+				controlButton.title = "Dog Parks. Off-Leash";
+				controlButton.type = "button";
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlButton.addEventListener("click", () => {
+					dosomething("Park-Off_Leash")
+				})
+				return controlButton;
+			}
+
+			function createCenterControl_3(map) {
+				const controlButton = document.createElement("button");
+				// Set CSS for the control.
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
+				controlButton.textContent = "Pet Stores";
+				controlButton.title = "Pet Stores";
+				controlButton.type = "button";
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlButton.addEventListener("click", () => {
+					dosomething("Pet_Store")
+				})
+				return controlButton;
+			}
+
+			function createCenterControl_4(map) {
+				const controlButton = document.createElement("button");
+				// Set CSS for the control.
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
+				controlButton.textContent = "Coffee";
+				controlButton.title = "Coffee Shops";
+				controlButton.type = "button";
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlButton.addEventListener("click", () => {
+					dosomething("Coffee")
+				})
+				return controlButton;
+			}
+
+			function createCenterControl_5(map) {
+				const controlButton = document.createElement("button");
+				// Set CSS for the control.
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
+				controlButton.textContent = "Vet";
+				controlButton.title = "Vetrinarian";
+				controlButton.type = "button";
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlButton.addEventListener("click", () => {
+					dosomething("Vet")
+				})
+				return controlButton;
+			}
+
+			function createCenterControl_6(map) {
+				const controlButton = document.createElement("button");
+				// Set CSS for the control.
+				controlButton.style.backgroundColor = "#fff";
+				controlButton.style.border = "2px solid #fff";
+				controlButton.style.borderRadius = "3px";
+				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+				controlButton.style.color = "rgb(25,25,25)";
+				controlButton.style.cursor = "pointer";
+				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+				controlButton.style.fontSize = "16px";
+				controlButton.style.lineHeight = "38px";
+				controlButton.style.margin = "8px 0 22px";
+				controlButton.style.padding = "0 5px";
+				controlButton.style.textAlign = "center";
+				controlButton.textContent = "Hospitals";
+				controlButton.title = "Hospitals";
+				controlButton.type = "button";
+				// Setup the click event listeners: simply set the map to Chicago.
+				controlButton.addEventListener("click", () => {
+					dosomething("Hospital")
+				})
 				return controlButton;
 			}
 
 
-
-
-
 			function dosomething(val) {
-
 				console.log(val);
 				if (val == "Hospital") {
 					userQuery = "Hospital";
@@ -300,21 +398,43 @@
 							zoom: 15
 						});
 
-						// Custom Controls------------
-						// Create the control.
+						// Create the DIV to hold the control.
 						const centerControlDiv = document.createElement("div");
+						// Create the control.
 						const centerControl = createCenterControl(map);
-						//const centerControl = createCenterControl(map);
-						// Append the control to the DIV.
-						//mapDiv.appendChild(centerControl);
+
+						const centerControlDiv_2 = document.createElement("div");
+						const centerControl_2 = createCenterControl_2(map);
+
+						const centerControlDiv_3 = document.createElement("div");
+						const centerControl_3 = createCenterControl_3(map);
+
+						const centerControlDiv_4 = document.createElement("div");
+						const centerControl_4 = createCenterControl_4(map);
+
+						const centerControlDiv_5 = document.createElement("div");
+						const centerControl_5 = createCenterControl_5(map);
+
+						const centerControlDiv_6 = document.createElement("div");
+						const centerControl_6 = createCenterControl_6(map);
+
 
 						// Append the control to the DIV.
 						centerControlDiv.appendChild(centerControl);
+						centerControlDiv_2.appendChild(centerControl_2);
+						centerControlDiv_3.appendChild(centerControl_3);
+						centerControlDiv_4.appendChild(centerControl_4);
+						centerControlDiv_5.appendChild(centerControl_5);
+						centerControlDiv_6.appendChild(centerControl_6);
+
 						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-						//mapDiv.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_2);
+						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_3);
+						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_4);
+						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_5);
+						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_6);
 
 
-						// End of Custom Controls ---------
 
 						bounds.extend(pos);
 
