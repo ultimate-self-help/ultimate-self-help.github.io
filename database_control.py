@@ -31,6 +31,7 @@ def create_table(conn):
                   category TEXT NOT NULL REFERENCES category(id),
                   symptom TEXT,
                   resolution TEXT,
+                  link1 TEXT,
                   rating INTEGER)''')
         conn.commit()
 
@@ -75,11 +76,11 @@ def create_db_and_tables():
 
 
 # Database. Insert. Single row.
-def add_row(conn, title, doc_type, category, symptom, resolution):
+def add_row(conn, title, doc_type, category, symptom, resolution, link1, rating):
     try:
         print("Passed In to Add: ", title)
         c = conn.cursor()
-        c.execute("INSERT INTO tech_support (title, doc_type, category, symptom, resolution) VALUES (?, ?, ?, ?, ?)", (title, doc_type, category, symptom, resolution))
+        c.execute("INSERT INTO tech_support (title, doc_type, category, symptom, resolution, link1, rating) VALUES (?, ?, ?, ?, ?, ?, ?)", (title, doc_type, category, symptom, resolution, link1, rating))
         conn.commit()
     except Error as e:
         print("Error: ", e)
@@ -97,18 +98,9 @@ def add_row(conn, title, doc_type, category, symptom, resolution):
 #     print("DATA PASSED IN: ", data)
 
 def update_single_row3(conn, data):
-    print("")
-    print("")
-    print("DATA TO UDPATE: ", data)
-    print("DATA TO UDPATE: ", data['title'])
-
-    # for key, value in data:
-    #     print("DATA TO UDPATE: ", key)
-    #     print("DATA TO UDPATE: ", value)
-
     db1 = conn.cursor()
     # db1.execute(f'''UPDATE tech_support SET {key} = ? WHERE id = ?''', (value, real_db_id))
-    db1.execute(f'''UPDATE tech_support SET title = ?, doc_type = ?, category = ?, symptom = ?, resolution = ?  WHERE id = ?''', (data['title'], data['doc_type'], data['category'], data['symptom'], data['resolution'],  data['id']))
+    db1.execute(f'''UPDATE tech_support SET title = ?, doc_type = ?, category = ?, symptom = ?, resolution = ?, link1 = ?, rating = ?  WHERE id = ?''', (data['title'], data['doc_type'], data['category'], data['symptom'], data['resolution'], data['link1'], data['rating'],  data['id']))
     conn.commit()
     print("OK. Updated DB")
 
