@@ -97,7 +97,8 @@ def app():
                     key='key_resolution'
                     )
             
-            db_id = st.text_input(label="Id: ", 
+            db_id = st.text_input(label="Id: ",
+                    disabled=True, 
                     value=st.session_state.user_selected_row['id'],
                     on_change=lambda: setattr(
                         st.session_state,
@@ -130,11 +131,16 @@ def app():
 #-----------------------
     cnx = database_control.create_connection()
     df = pd.read_sql_query("SELECT * FROM tech_support", cnx)    
+    doc_types = database_control.doc_type_get_all(cnx)
 
     st.subheader("A generic database open to the public for to help you with anything.")
     st.write("Feel free to contribute.")
     st.write("Select the 'Select' in the first column to 'update' or 'delete'.")
-    st.page_link(page="pages/new.py", label="New Entry")
+    
+    
+    if st.button("Create New"):
+        st.switch_page("pages/new.py")
+    
 #     doc_types = database_control.doc_type_get_all(cnx)
 #     popover_insert = st.popover("Add New", use_container_width=True)  
 #     with popover_insert.form("New Entry", clear_on_submit=True):       

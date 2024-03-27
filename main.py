@@ -32,11 +32,13 @@ if "my_input" not in st.session_state:
 class MultiApp:
     def __init__(self):
         self.apps = []
+        
     def add_app(self, title, function):
         self.app.append({
             "title": title,
             "function": function
         })
+
     def run():
         with st.sidebar:
             app = option_menu(
@@ -65,6 +67,6 @@ class MultiApp:
         if app == "Weather":
            tools_weather.app() 
         if app == 'About':
-            about.app()   
+            about.app()
     
     run()
