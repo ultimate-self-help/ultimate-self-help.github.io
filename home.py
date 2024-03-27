@@ -4,6 +4,8 @@ from streamlit_extras.badges import badge
 def app():
      with st.container():
         colL, colM, colR = st.columns(3)
+        with colL:
+            pass
         with colM:
             st.write("Welcome to the..")
             st.markdown('''## :rainbow[Ultimate Self Help]''')
@@ -22,5 +24,7 @@ def app():
             st.write("")
             st.write("Send this link to others to invite and infom them of this site.")
             st.write("https://ultimate-self-help.onrender.com/")
-          
+        with colR:
+            pass
+        
     
