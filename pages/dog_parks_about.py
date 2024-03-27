@@ -1,12 +1,15 @@
 import streamlit as st
 import streamlit.components.v1 as components
 # from dependancies import sign_up, sign_in, fetch_users
+from images import *
 def app():
 
     st.title("Dog Parks")
     
-    with st.expander("Dog Park. Help"):
-        st.image('2puppies.jpg')
+    with st.expander("Help"):
+        col1, col2, col3 = st.columns(3)
+        with col2:
+            st.image('images/2puppies.jpg')
         #st.page_link("dogparks2.py", icon="🐶", label="DogParks2")
         # st.page_link("dog_parks_map.py", label="Dog Park. Map", icon="🐶")
         st.write("A simple map to find local..")

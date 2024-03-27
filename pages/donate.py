@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_extras.buy_me_a_coffee import button
 from streamlit_extras.badges import badge
-
+from images import *
 from PIL import Image
 
 def app():
@@ -20,7 +20,7 @@ def app():
              # VERSION 2.
             button(username="ultimateselfhelp", floating=False, width=221, emoji="😀")
             
-            st.image("ush_bmc_qrcode.png", width=200)
+            st.image("images/ush_bmc_qrcode.png", width=200)
 
             st.write("Thanks in advanced! 😁")
 

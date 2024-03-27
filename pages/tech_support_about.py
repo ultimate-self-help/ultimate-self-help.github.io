@@ -173,7 +173,7 @@ def app():
         st.subheader("Self Help DB")
         
         with st.expander("Help"):
-            st.write("A generic database open to the public for to help you with anything.")
+            st.write("A generic database open for the public to assist in you daily lives with anything.")
             st.write("Select the 'Select' in the first column to 'update' or 'delete'. Feel free to contribute.")
             st.write("This is a work in progress. Be gentle.")
             

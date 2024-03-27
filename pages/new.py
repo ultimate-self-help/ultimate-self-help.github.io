@@ -3,8 +3,15 @@ import streamlit as st
 import database_control
 import pandas as pd
 
+#import main as main
+#import sidemenu as tech_support_about
+import sidemenu
 
-# app():
+# def app():
+#     st.subheader("New Entry")
+
+# with st.sidebar:
+#     st.write(sidemenu)
 
 cnx = database_control.create_connection()
 df = pd.read_sql_query("SELECT * FROM tech_support", cnx)    
