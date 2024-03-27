@@ -48,6 +48,10 @@ class MultiApp:
         with st.sidebar:
             # Icons from Twemoji. Failed.
             #OK. https://icons.getbootstrap.com/?q=house
+
+            # Alternate Menu Option: Sub Dir.
+            #https://discuss.streamlit.io/t/trick-simple-multpage/26121
+
             app = option_menu(
                 menu_title='Welcome to USH',
                 options=['Home','Dog Parks','Weather','Donate','About'],
