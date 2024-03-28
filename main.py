@@ -9,6 +9,7 @@ import pages.tools_about as tools_about
 import pages.tools_weather as tools_weather
 import pages.tech_support_about as tech_support_about
 import pages.where_am_i as where_am_i
+from streamlit_extras.badges import badge
 
 from st_pages import hide_pages, show_pages, Page
 
@@ -19,14 +20,14 @@ st.set_page_config(
 )
 
 # Hide top right default 'deploy' menu for production.
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# hide_st_style = """
+#             <style>
+#             #MainMenu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             header {visibility: hidden;}
+#             </style>
+#             """
+# st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # Hide specific pages from default sidebar.
 hide_pages(["new","main", "home", "where_am_i", "about", "tools_weather", "donate", "dog_parks_about","tech_support_about", "tools_about"])
@@ -104,6 +105,9 @@ class MultiApp:
             "nav-link-selected": {"background-color": "#4d90fe"},}
             )
 
+            # components.html("<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'W7W6W7JOT');kofiwidget2.draw();</script>", width=200, height=50)
+            badge(type="buymeacoffee", name="symbiotical")
+
         if app == "Home":
             home.app()
         if app == "Donate":
@@ -120,5 +124,7 @@ class MultiApp:
            tools_weather.app() 
         if app == 'About':
             about.app()
+
+        
     
     run()
