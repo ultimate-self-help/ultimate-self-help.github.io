@@ -593,6 +593,18 @@
 					infoPane.removeChild(infoPane.lastChild);
 				}
 
+				//Hide the Panel on user select 'close' button.
+				const close_btn = document.createElement('button')
+				close_btn.style.background = '#4d90fe'
+				close_btn.style.width = '100%'
+				close_btn.style.height = '40px'
+				close_btn.style.color = 'white';
+				close_btn.innerHTML = "Close"
+				close_btn.onclick = function () {
+					infoPane.style.display = "none"
+				}
+				infoPane.appendChild(close_btn)
+
 				/* TODO: Step 4E: Display a Place Photo with the Place Details */
 				// Add the primary photo, if there is one
 				if (placeResult.photos) {

@@ -165,39 +165,6 @@
 			background-color: #3B6EC2;
 		} */
 
-		/* -------------- MODAL --------------------------- */
-		/* The Modal (background) */
-		.modal {
-			display: none;
-			/* Hidden by default */
-			position: fixed;
-			/* Stay in place */
-			z-index: 1;
-			/* Sit on top */
-			left: 0;
-			top: 0;
-			width: 100%;
-			/* Full width */
-			height: 100%;
-			/* Full height */
-			overflow: auto;
-			/* Enable scroll if needed */
-			background-color: rgb(0, 0, 0);
-			/* Fallback color */
-			background-color: rgba(0, 0, 0, 0.4);
-			/* Black w/ opacity */
-		}
-
-		/* Modal Content/Box */
-		.modal-content {
-			background-color: #fefefe;
-			margin: 15% auto;
-			/* 15% from the top and centered */
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-			/* Could be more or less, depending on screen size */
-		}
 
 		/* The Close Button */
 		/* .close {
@@ -725,27 +692,26 @@
 } */
 
 			function showPanel(placeResult) {
-				console.log("Results: ", placeResult)
 				// If infoPane is already open, close it
 				if (infoPane.classList.contains("open")) {
-					console.log("Pane is open!")
 					infoPane.classList.remove("open");
 				}
-				// else {
-				// 	panel.classList.add('close');
-				// }
 
 				// Clear the previous details
 				while (infoPane.lastChild) {
 					infoPane.removeChild(infoPane.lastChild);
 				}
 
+				//Hide the Panel on user select 'close' button.
 				const close_btn = document.createElement('button')
+				close_btn.style.background = '#4d90fe'
+				close_btn.style.width = '100%'
+				close_btn.style.height = '40px'
+				close_btn.style.color = 'white';
 				close_btn.innerHTML = "Close"
 				close_btn.onclick = function () {
-					infoPane.classList.remove('open')
+					infoPane.style.display = "none"
 				}
-
 				infoPane.appendChild(close_btn)
 
 
@@ -787,6 +753,7 @@
 				}
 
 				// Open the infoPane
+				infoPane.style.display = "block"
 				infoPane.classList.add("open");
 			}
 		</script>
