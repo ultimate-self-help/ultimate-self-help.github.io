@@ -52,6 +52,44 @@ class MultiApp:
 
             # Alternate Menu Option: Sub Dir.
             #https://discuss.streamlit.io/t/trick-simple-multpage/26121
+            
+            # Close sidebar menu 'X'.
+            st.markdown("""<style>
+            .st-emotion-cache-ch5dnh {
+                    display: block;
+                    min-width: 100%;
+                        background-color: #4d90fe;
+                        
+                }
+            </style>
+            """, unsafe_allow_html=True)
+
+            # Open Sidebar menu.
+            st.markdown("""<style>
+            .st-emotion-cache-6q9sum {
+                    display: block;
+                    -webkit-box-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    justify-content: center;
+                    font-weight: 400;
+                    border-radius: 0.5rem;
+                    margin: 0px 0.125rem;
+                    color: white;
+                    width: 100%;
+                    user-select: none;
+                    background-color: #4d90fe;
+                    border: 2px;
+                    font-size: 14px;
+                    line-height: 1;
+                    min-width: 100%;
+                    min-height: 6rem;
+                    padding: 2px;
+                        
+                }
+            </style>
+            """, unsafe_allow_html=True)
+
 
             app = option_menu(
                 menu_title='symbiotical.io',
@@ -63,7 +101,7 @@ class MultiApp:
                     "container": {"padding": "5!important","background-color":'black'},
             "icon": {"color": "white", "font-size": "23px"}, 
             "nav-link": {"color":"white","font-size": "20px", "text-align": "left", "margin":"0px", "--hover-color": "blue"},
-            "nav-link-selected": {"background-color": "#02ab21"},}
+            "nav-link-selected": {"background-color": "#4d90fe"},}
             )
 
         if app == "Home":
