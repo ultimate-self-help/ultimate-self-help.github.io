@@ -31,6 +31,14 @@ def app():
         st.write("2. You must 'allow' this site access via the initial pop-up.")
         st.write("3. For best accuracy, you must enable GPS / 'Location' tracking from withing your mobile device 'settings'.")
 
+        st.write("Warning: Data accuracy can not be garanteed")
+        st.write("The source data is from public entering into google.com.")
+        st.write("It may not be accurate i.e. Old information incorrect labeling of 'off-leash' etc.")
+
+        st.subheader("FAQ")
+        st.write("Can I add or update an entry?")
+        st.write("Currently this can only be done via google.com")
+
 
 
     HtmlFile = open("pet-friendly.html", 'r', encoding='utf-8')

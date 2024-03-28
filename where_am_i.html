@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Dog Park Finder</title>
+	<title>Whare Am I</title>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<meta charset="utf-8">
 	<style>
@@ -149,7 +149,7 @@
 
 
 
-		#centerControlDiv:active {
+		/* #centerControlDiv:active {
 			background-color: #3B6EC2;
 		}
 
@@ -163,6 +163,62 @@
 
 		#button1:hover {
 			background-color: #3B6EC2;
+		} */
+
+		/* -------------- MODAL --------------------------- */
+		/* The Modal (background) */
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: fixed;
+			/* Stay in place */
+			z-index: 1;
+			/* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 100%;
+			/* Full height */
+			overflow: auto;
+			/* Enable scroll if needed */
+			background-color: rgb(0, 0, 0);
+			/* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+			background-color: #fefefe;
+			margin: 15% auto;
+			/* 15% from the top and centered */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			/* Could be more or less, depending on screen size */
+		}
+
+		/* The Close Button */
+		/* .close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		} */
+
+		.close {
+			color: #0c0c0c;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -179,6 +235,14 @@
 		style="z-index: 0; position: absolute; right: 800px; top: 0px; type=" button" value="Park. All"
 		onclick="dosomething(this.value)"> -->
 
+	<!-- <div id="myModal" class="modal"> -->
+
+	<!-- Modal content -->
+	<!-- <div class="modal-content">
+			<span class="close">&times;</span>
+			<p>You are here!</p>
+		</div> -->
+
 	<div id="content">
 		<div id="mainMenuBar">
 		</div>
@@ -188,13 +252,14 @@
 			 * prompted by your browser. If you see the error "Geolocation permission
 			 * denied.", it means you probably did not give permission for the browser * to locate you. */
 			let pos;
+			let modal;
 			let map;
 			let bounds;
 			let infoWindow;
 			let currentInfoWindow;
 			let service;
 			let infoPane;
-			let userQuery = "Dog Park";/*.meme.*/
+			let userQuery = "Police";/*.meme.*/
 
 			// let btn_bg_color = controlButton.style.backgroundColor = "#fff";
 			// let btn_border = controlButton.style.border = "2px solid #fff";
@@ -241,94 +306,76 @@
 				controlButton.style.padding = "0 5px";
 				controlButton.style.textAlign = "center";
 
-				controlButton.textContent = "Dog Parks";
-				controlButton.title = "All";
+				controlButton.textContent = "Where Am I?";
+				controlButton.title = "Where Am I";
 				controlButton.type = "button";
 				// Setup the click event listeners: simply set the map to Chicago.
 				controlButton.addEventListener("click", () => {
-					dosomething("Dog Park")
+					//dosomething("Where Am I?")
+					console.log("POS: ", pos)
+					const data = {
+
+						"name": "You're GPS location is:",
+						"formatted_address": pos.lat + " " + pos.lng
+						// You're mobile device GPS or 'Location' should be enabled (turned on).",
+						// "website": "<h2>" + pos.lat + " " + pos.lng + "</h2>"
+						// "website": "https://maps.google.com/?q=" + pos.lat + "," + pos.lng + " target=_blank"
+
+					}
+					showPanel(data)
 				})
 				return controlButton;
 			}
 
-			controlButton.addEventListener("focus", function () {
-				this.style.backgroundColor = "red";
-			});
+			// function createCenterControl_2(map) {
+			// 	const controlButton = document.createElement("button");
+			// 	// Set CSS for the control.
+			// 	controlButton.style.backgroundColor = "#fff";
+			// 	controlButton.style.border = "2px solid #fff";
+			// 	controlButton.style.borderRadius = "3px";
+			// 	controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+			// 	controlButton.style.color = "rgb(25,25,25)";
+			// 	controlButton.style.cursor = "pointer";
+			// 	controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+			// 	controlButton.style.fontSize = "16px";
+			// 	controlButton.style.lineHeight = "38px";
+			// 	controlButton.style.margin = "8px 0 22px";
+			// 	controlButton.style.padding = "0 5px";
+			// 	controlButton.style.textAlign = "center";
+			// 	controlButton.textContent = "Off-Leash";
+			// 	controlButton.title = "Dog Parks. Off-Leash";
+			// 	controlButton.type = "button";
+			// 	// Setup the click event listeners: simply set the map to Chicago.
+			// 	controlButton.addEventListener("click", () => {
+			// 		dosomething("Park-Off_Leash")
+			// 	})
+			// 	return controlButton;
+			// }
 
-			function createCenterControl_2(map) {
-				const controlButton = document.createElement("button");
-				// Set CSS for the control.
-				controlButton.style.backgroundColor = "#fff";
-				controlButton.style.border = "2px solid #fff";
-				controlButton.style.borderRadius = "3px";
-				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-				controlButton.style.color = "rgb(25,25,25)";
-				controlButton.style.cursor = "pointer";
-				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
-				controlButton.style.fontSize = "16px";
-				controlButton.style.lineHeight = "38px";
-				controlButton.style.margin = "8px 0 22px";
-				controlButton.style.padding = "0 5px";
-				controlButton.style.textAlign = "center";
-				controlButton.textContent = "Off-Leash";
-				controlButton.title = "Dog Parks. Off-Leash";
-				controlButton.type = "button";
-				// Setup the click event listeners: simply set the map to Chicago.
-				controlButton.addEventListener("click", () => {
-					dosomething("Park-Off_Leash")
-				})
-				return controlButton;
-			}
-
-			function createCenterControl_3(map) {
-				const controlButton = document.createElement("button");
-				// Set CSS for the control.
-				controlButton.style.backgroundColor = "#fff";
-				controlButton.style.border = "2px solid #fff";
-				controlButton.style.borderRadius = "3px";
-				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-				controlButton.style.color = "rgb(25,25,25)";
-				controlButton.style.cursor = "pointer";
-				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
-				controlButton.style.fontSize = "16px";
-				controlButton.style.lineHeight = "38px";
-				controlButton.style.margin = "8px 0 22px";
-				controlButton.style.padding = "0 5px";
-				controlButton.style.textAlign = "center";
-				controlButton.textContent = "Pet Stores";
-				controlButton.title = "Pet Stores";
-				controlButton.type = "button";
-				// Setup the click event listeners: simply set the map to Chicago.
-				controlButton.addEventListener("click", () => {
-					dosomething("Pet_Store")
-				})
-				return controlButton;
-			}
-
-			function createCenterControl_4(map) {
-				const controlButton = document.createElement("button");
-				// Set CSS for the control.
-				controlButton.style.backgroundColor = "#fff";
-				controlButton.style.border = "2px solid #fff";
-				controlButton.style.borderRadius = "3px";
-				controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-				controlButton.style.color = "rgb(25,25,25)";
-				controlButton.style.cursor = "pointer";
-				controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
-				controlButton.style.fontSize = "16px";
-				controlButton.style.lineHeight = "38px";
-				controlButton.style.margin = "8px 0 22px";
-				controlButton.style.padding = "0 5px";
-				controlButton.style.textAlign = "center";
-				controlButton.textContent = "Coffee";
-				controlButton.title = "Coffee Shops";
-				controlButton.type = "button";
-				// Setup the click event listeners: simply set the map to Chicago.
-				controlButton.addEventListener("click", () => {
-					dosomething("Coffee")
-				})
-				return controlButton;
-			}
+			// function createCenterControl_3(map) {
+			// 	const controlButton = document.createElement("button");
+			// 	// Set CSS for the control.
+			// 	controlButton.style.backgroundColor = "#fff";
+			// 	controlButton.style.border = "2px solid #fff";
+			// 	controlButton.style.borderRadius = "3px";
+			// 	controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+			// 	controlButton.style.color = "rgb(25,25,25)";
+			// 	controlButton.style.cursor = "pointer";
+			// 	controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+			// 	controlButton.style.fontSize = "16px";
+			// 	controlButton.style.lineHeight = "38px";
+			// 	controlButton.style.margin = "8px 0 22px";
+			// 	controlButton.style.padding = "0 5px";
+			// 	controlButton.style.textAlign = "center";
+			// 	controlButton.textContent = "Pet Stores";
+			// 	controlButton.title = "Pet Stores";
+			// 	controlButton.type = "button";
+			// 	// Setup the click event listeners: simply set the map to Chicago.
+			// 	controlButton.addEventListener("click", () => {
+			// 		dosomething("Pet_Store")
+			// 	})
+			// 	return controlButton;
+			// }
 
 			function createCenterControl_5(map) {
 				const controlButton = document.createElement("button");
@@ -345,12 +392,12 @@
 				controlButton.style.margin = "8px 0 22px";
 				controlButton.style.padding = "0 5px";
 				controlButton.style.textAlign = "center";
-				controlButton.textContent = "Vet";
-				controlButton.title = "Vetrinarian";
+				controlButton.textContent = "Police Station";
+				controlButton.title = "Police";
 				controlButton.type = "button";
 				// Setup the click event listeners: simply set the map to Chicago.
 				controlButton.addEventListener("click", () => {
-					dosomething("Vet")
+					dosomething("Police")
 				})
 				return controlButton;
 			}
@@ -381,24 +428,83 @@
 			}
 
 
+			// function createCenterControlGPS(map) {
+			// 	const controlButton = document.createElement("button");
+			// 	controlButton.style.backgroundColor = "#fff";
+			// 	controlButton.style.border = "2px solid #fff";
+			// 	controlButton.style.borderRadius = "3px";
+			// 	controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+			// 	controlButton.style.color = "rgb(25,25,25)";
+			// 	controlButton.style.cursor = "pointer";
+			// 	controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+			// 	controlButton.style.fontSize = "16px";
+			// 	controlButton.style.lineHeight = "38px";
+			// 	controlButton.style.margin = "8px 0 22px";
+			// 	controlButton.style.padding = "0 5px";
+			// 	controlButton.style.textAlign = "center";
+
+			// 	controlButton.textContent = "Get GPS";
+			// 	controlButton.title = "GPS";
+			// 	controlButton.type = "button";
+			// 	// Setup the click event listeners: simply set the map to Chicago.
+			// 	controlButton.addEventListener("click", () => {
+			// 		//dosomething("Where Am I?")
+			// 		const data = {
+			// 			"name": "You are here!",
+			// 			"formatted_address": pos
+			// 		}
+			// 		showPanel(data)
+			// 	})
+			// 	return controlButton;
+			// }
+
+
 			function dosomething(val) {
 				console.log(val);
 				if (val == "Hospital") {
 					userQuery = "Hospital";
-				} else if (val == "Park-Off_Leash") {
-					userQuery = "Dog Park Off Leash";
-				} else if (val == "Pet_Store") {
-					userQuery = "Pet Store";
-				} else if (val == "Vet") {
-					userQuery = "vetrinarian";
-				} else if (val == "Coffee") {
-					userQuery = "coffee";
+				} else if (val == "Police") {
+					userQuery = "Police";
+
+				} else if (val == "WhereAmI") {
+					// infoWindow.setPosition(pos);
+					// infoWindow.setContent('<h1>You are here!<br />Lat: ' + pos.lat + '<br />Lon: ' + pos.lng + '</h1>');
+					// infoWindow.open(map);
+					// map.setCenter(pos);
+					modal.style.display = "block"
+
 				} else {
-					userQuery = "Dog Park"
+					// userQuery = "where_am_i"
 				}
 				/*Re initialize map ..bug. should be betterway thar re-call api?*/
 				initMap();
 			}
+
+			// Get the modal
+			// modal = document.getElementById("myModal");
+
+			// // Get the button that opens the modal
+			// //var btn = document.getElementById("myBtn");
+
+			// // Get the <span> element that closes the modal
+			// var span = document.getElementsByClassName("close")[0];
+
+			// // When the user clicks on the button, open the modal
+			// // btn.onclick = function () {
+			// // 	modal.style.display = "block";
+			// // }
+
+			// // When the user clicks on <span> (x), close the modal
+			// span.onclick = function () {
+			// 	modal.style.display = "none";
+			// }
+
+			// // When the user clicks anywhere outside of the modal, close it
+			// window.onclick = function (event) {
+			// 	if (event.target == modal) {
+			// 		modal.style.display = "none";
+			// 	}
+			// }
 
 
 			function initMap() {
@@ -426,14 +532,14 @@
 						// Create the control.
 						const centerControl = createCenterControl(map);
 
-						const centerControlDiv_2 = document.createElement("div");
-						const centerControl_2 = createCenterControl_2(map);
+						// const centerControlDiv_2 = document.createElement("div");
+						// const centerControl_2 = createCenterControl_2(map);
 
-						const centerControlDiv_3 = document.createElement("div");
-						const centerControl_3 = createCenterControl_3(map);
+						// const centerControlDiv_3 = document.createElement("div");
+						// const centerControl_3 = createCenterControl_3(map);
 
-						const centerControlDiv_4 = document.createElement("div");
-						const centerControl_4 = createCenterControl_4(map);
+						// const centerControlDiv_4 = document.createElement("div");
+						// const centerControl_4 = createCenterControl_4(map);
 
 						const centerControlDiv_5 = document.createElement("div");
 						const centerControl_5 = createCenterControl_5(map);
@@ -441,27 +547,27 @@
 						const centerControlDiv_6 = document.createElement("div");
 						const centerControl_6 = createCenterControl_6(map);
 
+						//const centerControlDiv_GPS = document.createElement("div");
+						//const centerControl_GPS = createCenterControl_GPS(map);
+
 
 						// Append the control to the DIV.
 						centerControlDiv.appendChild(centerControl);
-						centerControlDiv_2.appendChild(centerControl_2);
-						centerControlDiv_3.appendChild(centerControl_3);
-						centerControlDiv_4.appendChild(centerControl_4);
+						// centerControlDiv_2.appendChild(centerControl_2);
+						// centerControlDiv_3.appendChild(centerControl_3);
+						// centerControlDiv_4.appendChild(centerControl_4);
 						centerControlDiv_5.appendChild(centerControl_5);
 						centerControlDiv_6.appendChild(centerControl_6);
+						//centerControlDiv_6.appendChild(centerControl_GPS);
 
 						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_2);
-						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_3);
-						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_4);
+						// map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_2);
+						// map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_3);
+						// map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_4);
 						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_5);
 						map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv_6);
 
-
-						centerControlDiv.addEventListener("focus", function () {
-							this.style.backgroundColor = "red";
-							alert("Hello")
-						});
+						//map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv_GPS);
 
 						bounds.extend(pos);
 
@@ -582,16 +688,66 @@
 
 			/* TODO: Step 4D: Load place details in a sidebar */
 			// Displays place details in a sidebar
+			/* PASSED IN EXAMPLE..
+			{
+	"formatted_address": "9 Belmore St, Burwood NSW 2134, Australia",
+	"geometry": {
+		"location": {
+			"lat": -33.8789948,
+			"lng": 151.105059
+		},
+		"viewport": {
+			"south": -33.8804022802915,
+			"west": 151.1036944697085,
+			"north": -33.8777043197085,
+			"east": 151.1063924302915
+		}
+	},
+	"name": "Burwood Police Station",
+	"photos": [
+		{
+			"height": 1080,
+			"html_attributions": [
+				"<a href=\"https://maps.google.com/maps/contrib/106685962084785641752\">M AK</a>"
+			],
+			"width": 1920
+		},
+		{
+			"height": 1080,
+			"html_attributions": [
+				"<a href=\"https://maps.google.com/maps/contrib/106685962084785641752\">M AK</a>"
+			],
+			"width": 1920
+		}
+	],
+	"website": "http://www.police.nsw.gov.au/about_us/regions_local_area_commands/south_west_metro_region/burwood/burwood_police_station",
+	"html_attributions": []
+} */
+
 			function showPanel(placeResult) {
+				console.log("Results: ", placeResult)
 				// If infoPane is already open, close it
 				if (infoPane.classList.contains("open")) {
+					console.log("Pane is open!")
 					infoPane.classList.remove("open");
 				}
+				// else {
+				// 	panel.classList.add('close');
+				// }
 
 				// Clear the previous details
 				while (infoPane.lastChild) {
 					infoPane.removeChild(infoPane.lastChild);
 				}
+
+				const close_btn = document.createElement('button')
+				close_btn.innerHTML = "Close"
+				close_btn.onclick = function () {
+					infoPane.classList.remove('open')
+				}
+
+				infoPane.appendChild(close_btn)
+
 
 				/* TODO: Step 4E: Display a Place Photo with the Place Details */
 				// Add the primary photo, if there is one
@@ -627,6 +783,7 @@
 					websiteLink.href = placeResult.website;
 					websitePara.appendChild(websiteLink);
 					infoPane.appendChild(websitePara);
+					// infoPane.close();
 				}
 
 				// Open the infoPane

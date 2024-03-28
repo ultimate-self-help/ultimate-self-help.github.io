@@ -8,16 +8,15 @@ def app():
             pass
         with colM:
             st.write("Welcome to the..")
-            st.markdown('''## :rainbow[Ultimate Self Help]''')
+            st.markdown('''## :rainbow[Symbiotical.io]''')
 
             st.write("Cost: Free / Nothing.")
             st.write("")
-            st.write("A simple site for simple people!")
-            st.write("This site has a multitude of different uses..")
+            st.write("This site features..")
 
             st.write("- Find You Local Dog Parks")
             st.write("- Local Weather Forcast")
-            st.write("- Daily Usefull Tools (TBA)")
+            st.write("And more to come..")
             st.write("Donations accepted! 😄")
             badge(type="buymeacoffee", name="ultimateselfhelp")
 

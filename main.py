@@ -8,11 +8,12 @@ import pages.about as about
 import pages.tools_about as tools_about
 import pages.tools_weather as tools_weather
 import pages.tech_support_about as tech_support_about
+import pages.where_am_i as where_am_i
 
 from st_pages import hide_pages, show_pages, Page
 
 st.set_page_config(
-    page_title="Ultimate-Self-Help",
+    page_title="Symbiotical.io",
     page_icon="🐶",
     layout='wide'
 )
@@ -28,7 +29,7 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # Hide specific pages from default sidebar.
-hide_pages(["new","main", "home", "about", "tools_weather", "donate", "dog_parks_about","tech_support_about", "tools_about"])
+hide_pages(["new","main", "home", "where_am_i", "about", "tools_weather", "donate", "dog_parks_about","tech_support_about", "tools_about"])
 
 if "my_input" not in st.session_state:
     st.session_state['my_input'] = ""
@@ -53,9 +54,9 @@ class MultiApp:
             #https://discuss.streamlit.io/t/trick-simple-multpage/26121
 
             app = option_menu(
-                menu_title='Welcome to USH',
-                options=['Home','Dog Parks','Weather','Donate','About'],
-                icons=['house','signpost-2','cloud-sun','piggy-bank', 'info-circle'],
+                menu_title='symbiotical.io',
+                options=['Home','Dog Parks','Where Am I', 'Weather','Donate','About'],
+                icons=['house','signpost-2','compass','cloud-sun','piggy-bank', 'info-circle'],
                 menu_icon='person-raised-hand',
                 default_index=0,
                 styles={
@@ -70,7 +71,9 @@ class MultiApp:
         if app == "Donate":
             donate.app()    
         if app == "Dog Parks":
-           dog_parks_about.app()        
+           dog_parks_about.app()  
+        if app == "Where Am I":
+           where_am_i.app()      
         if app == 'Tech Support':
             tech_support_about.app()
         if app == "Tools":
